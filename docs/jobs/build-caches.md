@@ -54,8 +54,8 @@ WORKDIR /
 Run the same `cargo` commands in the image as the checks run, since a different
 profile or feature set compiles again.
 
-**Cost.** The image grows by the cache, and every runner pulls it again each
-time it changes. Rebuild it when the lockfile changes; until then each job
+**Cost.** The image grows by the cache, and each rebuild needs a new tag in
+the configuration, which every runner then pulls. Rebuild it when the lockfile changes; until then each job
 fetches and compiles only what is new.
 
 ## An owner volume
@@ -90,8 +90,8 @@ spellings. The [chuggy-linux README](https://github.com/kasofsk/chuggy-linux#con
 has the rest.
 
 **Cost.** The runner's owner sets it up on each machine, and the first job on
-each runs cold. One volume serves every project and job on the machine, jobs
-running at once among them, so it suits a tool whose cache is safe to share, as
+each runs cold. One volume serves every project and job on the machine, including
+jobs running at the same time, so it suits a tool whose cache is safe to share, as
 npm's and Cargo's are. One project's job can read and change what another's
 wrote there. Nothing removes a volume or limits its size. Sessions and
 [jobs on the runner's machine](host.md) do not get it.
@@ -103,7 +103,8 @@ that can be [sccache](https://github.com/mozilla/sccache) with Redis. Once the
 runner has made its network, its owner starts the server:
 
 ```sh
-docker run -d --name build-cache --network chuggy-jobs --restart unless-stopped redis:7-alpine
+docker run -d --name build-cache --network chuggy-jobs --restart unless-stopped \
+  redis:7-alpine redis-server --maxmemory 4gb --maxmemory-policy allkeys-lru
 ```
 
 and hands jobs its address in `runner.json`:
@@ -131,7 +132,7 @@ Other tools with remote caches, such as Bazel and Gradle, work the same way.
 
 **Cost.** A server for the runner's owner to run and keep, and a network round
 trip for each compilation. Like a volume, it is shared by every project
-on the machine.
+on the machine. Without `--maxmemory`, nothing limits its size.
 
 ## BuildKit cache mounts through the socket
 

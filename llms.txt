@@ -4,7 +4,7 @@
 
 ## Jobs
 
-- [Overview](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/index.md): the terms (configuration, stage, check, job, runner) and the page list.
+- [Overview](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/index.md): the terms (configuration, stage, check, job, workload, runner) and the page list.
 - [A job's container](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/container.md): start, user, environment variables, checkout, reading other repositories, mounts, network, size, lifetime.
 - [Jobs on the runner's machine](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/host.md): workloads that name capabilities instead of an image, and how a job run outside a container differs.
 - [The project's image](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/image.md): what an image needs, how a configuration names it, how runners get it, a self-check and a starting Dockerfile.

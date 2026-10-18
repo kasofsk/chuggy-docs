@@ -1,6 +1,6 @@
 ---
 title: A job's container
-description: What chuggy fixes about every job it runs in a container on a runner.
+description: What chuggy sets for every job it runs in a container on a runner.
 ---
 
 # A job's container
@@ -12,7 +12,8 @@ instead, as [Jobs on the runner's machine](host.md) describes.
 
 ## How it starts
 
-chuggy mounts its runtime read-only at `/opt/chuggy` and starts the container
+chuggy mounts its runtime, the programs it runs the job with, read-only at
+`/opt/chuggy` and starts the container
 with `/bin/sh /opt/chuggy/check.sh` in place of the image's `ENTRYPOINT` and
 `CMD`, so neither of those runs. The script checks that the image has
 [what a job needs](image.md#what-it-needs), then starts chuggy's worker under
@@ -52,8 +53,9 @@ The runner's `environment` cannot set any of these. Setup and check lines run
 under `sh -eu`, so a line reads the change base as `${CHUG_CHANGE_BASE-}`, which
 is empty where it is unset.
 
-Git is handed chuggy's configuration through `GIT_CONFIG_COUNT` and the
-variables it numbers, after any the image sets. `CARGO_NET_GIT_FETCH_WITH_CLI`
+chuggy hands git its own settings through `GIT_CONFIG_COUNT` and the
+`GIT_CONFIG_KEY_n` and `GIT_CONFIG_VALUE_n` pairs it counts, after any the
+image sets. `CARGO_NET_GIT_FETCH_WITH_CLI`
 is `true` unless the image or the runner set it, so cargo fetches git
 dependencies with git and the credentials chuggy serves it.
 
@@ -78,14 +80,14 @@ breaks the clone ([The project's image](image.md#what-it-needs)).
 
 ## Other repositories
 
-Any git command a job runs is given read access to the other repositories the
-project binds on the same forge. That covers a `git clone` in a check, a
+Any git command a job runs can read the project's other repositories on the
+same host, such as GitHub. That covers a `git clone` in a check, a
 submodule, and a package manager fetching a git dependency with git. An SSH
-address on the forge, such as `git@github.com:acme/lib.git`, is fetched over
-HTTPS with the same access. A repository the project does not bind fails as any
+address on that host, such as `git@github.com:acme/lib.git`, is fetched over
+HTTPS with the same access. A repository outside the project fails as any
 repository git cannot read does.
 
-chuggy's credential helper replaces any the image sets for that forge. It needs
+chuggy's credential helper replaces any the image sets for that host. It needs
 git 2.31 or later; with an older git the job runs without these reads and its
 log says so.
 
@@ -123,11 +125,12 @@ the runner's `timeoutSecsMax`.
 ## When it ends
 
 The container and its workspace volume are removed, and the runner keeps the
-job's log. A file the job wrote outlives it only on one of the runner's
-volumes.
+job's log. On the runner's machine, a file the job wrote outlives it only on one of the
+runner's volumes.
 
 ## Sessions
 
-A project's chat and lead can also run on its runners, as sessions. A session
+A project's chat threads and its lead agent can also run on its runners, as
+sessions. A session
 runs in chuggy's own image, never the project's, and is handed neither the
 engine socket nor the runner's volumes.

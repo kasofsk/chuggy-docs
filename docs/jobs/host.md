@@ -58,7 +58,7 @@ later.
 `git` and the agent's command, such as `claude`, must be on the `PATH` of the
 runner's systemd user service, which is not the `PATH` a login shell has.
 
-A job on the machine can read and change whatever the runner's user can, the
-other jobs there among them. The runner stops it, with every process it
-started, at the sooner of the deadline chuggy sets for it and `timeoutSecsMax`. Its directory is
-removed when it ends.
+A job on the machine can read and change whatever the runner's user can,
+including the other jobs there. The runner stops it, with every process it
+started, at the sooner of the deadline chuggy sets for it and
+`timeoutSecsMax`. Its directory is removed when it ends.

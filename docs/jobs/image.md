@@ -68,10 +68,11 @@ minutes of trying.
   Alpine and other musl images cannot load chuggy's runtime.
 - A `HOME`, and a temporary directory (`TMPDIR`, or `/tmp`), that uid 1000 can
   write. An image with no user of uid 1000 and no `HOME` in its `ENV` gives the
-  job `HOME=/`, which it cannot write.
+  job a `HOME` it cannot write (`/` on docker).
 - A build for `linux/amd64`, the platform chuggy's runtime is built for. A job
   that names an image runs only on a runner whose containers are
-  `linux/amd64`.
+  `linux/amd64`, which rules out a Mac whose Colima VM is arm64, as it is by
+  default on Apple silicon.
 - A `WORKDIR` outside `/workspace/repository`. Docker makes an image's
   `WORKDIR` when the container starts, inside the job's workspace volume and
   owned by root, and the clone into `/workspace/repository` then fails.
