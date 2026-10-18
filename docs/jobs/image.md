@@ -57,6 +57,8 @@ own.
   keeps the login past a reboot. The runner does not see a shell's
   environment, so a login that only a shell profile points to does not reach
   it.
+- A Mac runner does not use the machine's login yet, so there an image must be
+  public, or pulled or built on the Mac by its owner.
 - A runner does not pull an image again once it holds it, so a tag pushed
   again is not picked up. Give each new image a new tag, or name it by digest.
 
