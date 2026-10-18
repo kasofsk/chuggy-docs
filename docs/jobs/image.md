@@ -49,9 +49,14 @@ own.
 - An image the runner's engine already holds under that name is used as it is.
   A runner's owner can build one there with `docker build -t` and it is used at
   once.
-- An image it lacks is pulled with no registry login, so it must be public, or
-  pulled or built on the runner by its owner. A podman runner also uses a
-  credential helper its owner set in podman's `registries.conf`.
+- An image it lacks is pulled from its registry with the runner machine's own
+  login for that registry, so a private image works once the machine has one.
+  Log in once on each runner machine, as the user the runner runs as and not
+  with `sudo`: `docker login ghcr.io`, or on a podman runner
+  `podman login --authfile ~/.config/containers/auth.json ghcr.io`, which
+  keeps the login past a reboot. The runner does not see a shell's
+  environment, so a login that only a shell profile points to does not reach
+  it.
 - A runner does not pull an image again once it holds it, so a tag pushed
   again is not picked up. Give each new image a new tag, or name it by digest.
 
