@@ -97,7 +97,7 @@ log says so.
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | `/opt/chuggy`                            | chuggy's runtime, read-only.                                                                    |
 | `/workspace`                             | The job's workspace volume.                                                                     |
-| `/var/run/chuggy/credentials/claude-code` | The runner's Claude token, read-only.                                                          |
+| `/var/run/chuggy/credentials/claude-code` | The file holding the runner's Claude credential, read-only.                                    |
 | `/var/run/chuggy/minted`                 | A small in-memory directory only the job's user can open, for credentials chuggy mints for it. |
 | `/var/run/docker.sock`                   | The runner's container engine, where its owner turned on `engineSocket` ([Docker in a job](docker.md)). |
 | Each `target` in the runner's `volumes`  | A volume or directory of the runner's machine ([Build caches](build-caches.md#an-owner-volume)). |
