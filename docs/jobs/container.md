@@ -14,8 +14,9 @@ instead, as [Jobs on the runner's machine](host.md) describes.
 
 chuggy mounts its runtime, the programs it runs the job with, read-only at
 `/opt/chuggy` and starts the container in `/workspace`, whatever `WORKDIR` the
-image names, with `/bin/sh /opt/chuggy/check.sh` in place of the image's
-`ENTRYPOINT` and `CMD`, so neither of those runs. The script checks that the
+image names (except on a Mac runner, as below), with
+`/bin/sh /opt/chuggy/check.sh` in place of the image's `ENTRYPOINT` and `CMD`,
+so neither of those runs. The script checks that the
 image has [what a job needs](image.md#what-it-needs), then starts chuggy's
 worker under tini, an init that reaps any process a job leaves orphaned. The
 image needs no init of its own.
