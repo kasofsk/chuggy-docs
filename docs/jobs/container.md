@@ -13,12 +13,12 @@ instead, as [Jobs on the runner's machine](host.md) describes.
 ## How it starts
 
 chuggy mounts its runtime, the programs it runs the job with, read-only at
-`/opt/chuggy` and starts the container
-with `/bin/sh /opt/chuggy/check.sh` in place of the image's `ENTRYPOINT` and
-`CMD`, so neither of those runs. The script checks that the image has
-[what a job needs](image.md#what-it-needs), then starts chuggy's worker under
-tini, an init that reaps any process a job leaves orphaned. The image needs no
-init of its own.
+`/opt/chuggy` and starts the container in `/workspace`, whatever `WORKDIR` the
+image names, with `/bin/sh /opt/chuggy/check.sh` in place of the image's
+`ENTRYPOINT` and `CMD`, so neither of those runs. The script checks that the
+image has [what a job needs](image.md#what-it-needs), then starts chuggy's
+worker under tini, an init that reaps any process a job leaves orphaned. The
+image needs no init of its own.
 
 chuggy's own `node` and `claude` come from the runtime and are not put on
 `PATH`, so a check that runs `node` gets the image's.
@@ -75,17 +75,21 @@ every job in a container on every runner, so an image can prepare things for it
 each under `/bin/sh -eu -c`, before the stage's checks or its agent. Files
 setup leaves that git does not track are left out of the change.
 
-An image whose `WORKDIR` is `/workspace/repository`, or a directory inside it,
-breaks the clone ([The project's image](image.md#what-it-needs)).
+A Mac runner does not yet start a job in `/workspace`, so there an image whose
+`WORKDIR` is `/workspace/repository`, or a directory inside it, breaks the clone
+([The project's image](image.md#what-it-needs)).
 
-## Other repositories
+## Repositories
 
-Any git command a job runs can read the project's other repositories on the
-same host, such as GitHub. That covers a `git clone` in a check, a
-submodule, and a package manager fetching a git dependency with git. An SSH
-address on that host, such as `git@github.com:acme/lib.git`, is fetched over
-HTTPS with the same access. A repository outside the project fails as any
-repository git cannot read does.
+Any git command a job runs can read the project's repositories on the same
+host, such as GitHub, the job's own among them. That covers a `git fetch` of
+the job's own repository, a `git clone` in a check, a submodule, and a package
+manager fetching a git dependency with git. An SSH address on that host, such
+as `git@github.com:acme/lib.git`, is fetched over HTTPS with the same access. A
+repository outside the project fails as any repository git cannot read does.
+
+What git is handed for the job's own repository is a read, the clone's
+included, until chuggy pushes the job's change.
 
 chuggy's credential helper replaces any the image sets for that host. It needs
 git 2.31 or later; with an older git the job runs without these reads and its

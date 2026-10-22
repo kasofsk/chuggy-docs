@@ -69,8 +69,8 @@ minutes of trying.
 ## What it needs
 
 - `/bin/sh`.
-- `git` on `PATH`, 2.31 or later to read the project's other repositories
-  ([A job's container](container.md#other-repositories)).
+- `git` on `PATH`, 2.31 or later to read the project's repositories past the
+  clone ([A job's container](container.md#repositories)).
 - glibc 2.28 or later, with libstdc++, as a current Debian or Ubuntu has.
   Alpine and other musl images cannot load chuggy's runtime.
 - A `HOME`, and a temporary directory (`TMPDIR`, or `/tmp`), that uid 1000 can
@@ -80,7 +80,8 @@ minutes of trying.
   that names an image runs only on a runner whose containers are
   `linux/amd64`, which rules out a Mac whose Colima VM is arm64, as it is by
   default on Apple silicon.
-- A `WORKDIR` outside `/workspace/repository`. Docker makes an image's
+- On a Mac runner, a `WORKDIR` outside `/workspace/repository`. A Mac runner
+  does not yet start a job in `/workspace`, so docker makes the image's
   `WORKDIR` when the container starts, inside the job's workspace volume and
   owned by root, and the clone into `/workspace/repository` then fails.
 
@@ -104,7 +105,7 @@ printf '%s\n' "glibc 2.28" "$v" | sort -V -C || fail "glibc 2.28 or later (have 
 [ -w "$HOME" ] || fail "a HOME uid 1000 can write (HOME is $HOME)"
 [ -w "${TMPDIR:-/tmp}" ] || fail "a temporary directory uid 1000 can write"
 g=$(git --version | cut -d' ' -f3)
-printf '%s\n' 2.31 "$g" | sort -V -C || echo "note: git $g cannot read the project's other repositories"
+printf '%s\n' 2.31 "$g" | sort -V -C || echo "note: git $g cannot read the project's repositories past the clone"
 echo "ok: git $g, $v"
 EOF
 ```
