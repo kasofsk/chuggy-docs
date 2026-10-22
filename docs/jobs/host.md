@@ -52,8 +52,8 @@ Setup and check lines still run at the root of the checkout, so a line that
 needs the checkout's path reads it from `$PWD`. The job starts with the runner
 service's environment and the runner's `environment`, and its setup and check
 lines get the variables [A job's container](container.md#environment) lists.
-Reading the project's other repositories needs the machine's git to be 2.31 or
-later.
+Reading the project's repositories past the clone needs the machine's git to
+be 2.31 or later.
 
 `git` and the agent's command, such as `claude`, must be on the `PATH` of the
 runner's systemd user service, which is not the `PATH` a login shell has.

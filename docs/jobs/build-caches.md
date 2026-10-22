@@ -16,9 +16,8 @@ Install dependencies, or build once, while building the image, so a job only
 does what changed since. Build at `/workspace/repository`, the path every job's
 checkout is at, so a tool that records where it built finds the same path in
 the job. Keep the output outside `/workspace`, since the job's own workspace
-volume covers that directory. End with a `WORKDIR` outside
-`/workspace/repository`, or the job's clone fails
-([The project's image](image.md#what-it-needs)).
+volume covers that directory. For a Mac runner, end with `WORKDIR /`, or the
+job's clone fails ([The project's image](image.md#what-it-needs)).
 
 For npm, keep npm's cache in the image and install offline-first in setup:
 
@@ -28,7 +27,6 @@ ENV npm_config_cache=/opt/npm-cache
 WORKDIR /workspace/repository
 COPY package.json package-lock.json ./
 RUN npm ci && chown -R 1000:1000 /opt/npm-cache
-WORKDIR /
 ```
 
 ```json
@@ -48,7 +46,6 @@ ENV HOME=/home/chuggy CARGO_TARGET_DIR=/opt/target
 WORKDIR /workspace/repository
 COPY . .
 RUN cargo build --locked && chown -R 1000:1000 /opt/target "$CARGO_HOME"
-WORKDIR /
 ```
 
 Run the same `cargo` commands in the image as the checks run, since a different
