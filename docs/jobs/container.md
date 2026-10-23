@@ -58,7 +58,7 @@ is empty where it is unset.
 chuggy hands git its own settings through `GIT_CONFIG_COUNT` and the
 `GIT_CONFIG_KEY_n` and `GIT_CONFIG_VALUE_n` pairs it counts, after any the
 image sets. `CARGO_NET_GIT_FETCH_WITH_CLI`
-is `true` unless the image or the runner set it, so cargo fetches git
+is `true` unless the image, the runner or a setup line sets it, so cargo fetches git
 dependencies with git and the credentials chuggy serves it.
 
 If the image sets `NODE_OPTIONS`, `NODE_PATH`, `LD_PRELOAD`,
