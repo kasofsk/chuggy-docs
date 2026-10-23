@@ -18,8 +18,8 @@ jobs in Colima's Linux VM. Each one's README covers installing and configuring
 it.
 
 - [A job's container](jobs/container.md) lists what chuggy sets for every
-  job in a container: how it starts, its user, environment, checkout, mounts,
-  network and size.
+  job in a container: how it starts, its user, environment, checkout, passing
+  variables from setup, mounts, network and size.
 - [Jobs on the runner's machine](jobs/host.md) covers a job that asks for
   capabilities in place of an image, and what changes when it runs outside a
   container.

@@ -49,6 +49,7 @@ check line, and every shell the agent runs, is also told which job it is in.
 | `CHUG_ATTEMPT`     | This attempt's id. A stage run again gets a new one.                                        |
 | `CHUG_STAGE`       | `Work`, or `Evaluation:1`, `Evaluation:2` and so on for the evaluation stages in order.     |
 | `CHUG_CHANGE_BASE` | The commit the change started from, set only where it is known.                             |
+| `CHUG_ENV`         | In a setup line only, the file it passes variables on in ([below](#passing-variables-from-setup)). |
 
 The runner's `environment` cannot set any of these. Setup and check lines run
 under `sh -eu`, so a line reads the change base as `${CHUG_CHANGE_BASE-}`, which
@@ -79,6 +80,34 @@ setup leaves that git does not track are left out of the change.
 A Mac runner does not yet start a job in `/workspace`, so there an image whose
 `WORKDIR` is `/workspace/repository`, or a directory inside it, breaks the clone
 ([The project's image](image.md#what-it-needs)).
+
+## Passing variables from setup
+
+A setup line passes a variable to the setup lines after it, the agent's shells
+and the job's check lines by appending it to the file `CHUG_ENV` names, in the
+two forms GitHub Actions reads `GITHUB_ENV` in:
+
+```json
+"setup": [
+  "curl -fsSL https://sh.rustup.rs | sh -s -- -y",
+  "echo \"PATH=$HOME/.cargo/bin:$PATH\" >> \"$CHUG_ENV\""
+]
+```
+
+`NAME=value` sets the rest of the line. `NAME<<DELIMITER` sets the lines after
+it up to `DELIMITER` alone on a line, as
+`{ echo 'NOTES<<EOF'; cat notes.txt; echo EOF; } >> "$CHUG_ENV"` writes them.
+Where a name is set twice, the later value wins.
+
+A value reaches only the job whose setup set it. Each job runs its own setup,
+so a workload whose job needs the variable sets it in its own setup.
+
+A name is letters, digits and `_`, not starting with a digit. A name starting
+`CHUG_` or `CHUGGY_`, the `GIT_CONFIG_` variables above and the other names
+chuggy reserves are chuggy's. Setting one fails the setup step, as do a line
+neither form reads and more than the worker's bound on what setup passes.
+Nothing scrubs these values, so read a secret from where it is kept rather than
+writing it here.
 
 ## Repositories
 
