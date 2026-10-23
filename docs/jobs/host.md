@@ -36,6 +36,42 @@ job that names the Mac's own platform, `"operatingSystem": "MacOS"`, as its
 [README](https://github.com/kasofsk/chuggy-darwin#work-that-pins-no-image)
 describes.
 
+## Requiring an image a runner provides
+
+A workload that pins no image can still require one: an image built on the
+runner's machine, say, or one only some runners have. Name a capability of
+your own for it. chuggy only matches capability tokens, so the name is yours.
+
+In the workload, in place of `image`:
+
+```json
+"executionRequirement": {
+  "mode": "Capability",
+  "operatingSystem": "Linux",
+  "architecture": "Amd64",
+  "capabilities": ["Image:acme-build"]
+}
+```
+
+On each runner that has the image, list it in `runner.json` with the same
+capabilities and, for an agent workload, its agent's, such as `Agent:Claude`:
+
+```json
+"images": [{ "image": "acme/build:2026-10", "capabilities": ["Agent:Claude", "Image:acme-build"] }]
+```
+
+A runner reads `runner.json` only when its service starts, so edit it before
+registering, or restart the service after.
+
+Then register the runner with those capabilities: add them under
+**Capabilities** in **Advanced**, and the command chuggy prints declares each
+with `--capability`. A runner already registered takes them by registering
+again. On a Linux runner, leave **Run jobs without a container** off: one
+registered with `--host` runs the job on its own machine instead.
+
+The job is offered only to a runner that declared every capability it names,
+and that runner runs it in the first image it lists with all of them.
+
 ## What differs on a Linux runner's machine
 
 | | In a container | On the runner's machine |
