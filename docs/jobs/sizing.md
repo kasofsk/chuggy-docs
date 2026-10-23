@@ -47,7 +47,9 @@ to every job, and an entry of `taskKindDefaults` replaces it for the work
 ```
 
 In a configuration with no `evaluations` list, the key for its evaluation is
-`Evaluation`.
+`Evaluation`. A key naming no stage the configuration runs is accepted and
+sizes nothing: `Evaluation` beside an `evaluations` list, `Evaluation:1` and
+the rest without one, and an `Evaluation:N` past the list's last entry.
 
 ## Limits
 
