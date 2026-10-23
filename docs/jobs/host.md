@@ -52,6 +52,10 @@ Setup and check lines still run at the root of the checkout, so a line that
 needs the checkout's path reads it from `$PWD`. The job starts with the runner
 service's environment and the runner's `environment`, and its setup and check
 lines get the variables [A job's container](container.md#environment) lists.
+A setup line has `CHUG_ENV`
+([Passing variables from setup](container.md#passing-variables-from-setup))
+on a runner release from 0.21.0 on; on an older one it is unset, and a line
+that writes to it fails.
 Reading the project's repositories past the clone needs the machine's git to
 be 2.31 or later.
 
