@@ -36,6 +36,39 @@ job that names the Mac's own platform, `"operatingSystem": "MacOS"`, as its
 [README](https://github.com/kasofsk/chuggy-darwin#work-that-pins-no-image)
 describes.
 
+## Requiring an image a runner provides
+
+A configuration that pins no image can still require one: an image built on
+the runner's machine, say, or one only some runners have. Name a capability of
+your own for it. chuggy only matches capability tokens, so the name is yours.
+
+In the configuration:
+
+```json
+"executionRequirement": {
+  "mode": "Capability",
+  "operatingSystem": "Linux",
+  "architecture": "Amd64",
+  "capabilities": ["Image:acme-build"]
+}
+```
+
+When registering each runner that has the image, add `Image:acme-build` under
+**Capabilities** in **Advanced**, and for an agent workload its agent too, such
+as `Agent:Claude`. The command chuggy prints then declares each with
+`--capability`. Leave **Run jobs without a container** off: a runner registered
+with `--host` runs the job on its own machine instead.
+
+In that runner's `runner.json`, list the image with the same capabilities:
+
+```json
+"images": [{ "image": "acme/build:2026-10", "capabilities": ["Agent:Claude", "Image:acme-build"] }]
+```
+
+The job is offered only to a runner that declared `Image:acme-build`, and that
+runner runs it in the first image it lists with every capability the job
+names.
+
 ## What differs on a Linux runner's machine
 
 | | In a container | On the runner's machine |
