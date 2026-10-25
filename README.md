@@ -9,6 +9,7 @@ How chuggy runs a project's jobs, and how to make them fast.
 - [Docker in a job](docs/jobs/docker.md)
 - [Build caches](docs/jobs/build-caches.md)
 - [Sizing a stage](docs/jobs/sizing.md)
+- [A repository's settings](docs/repository.md)
 - [llms.txt](llms.txt)
 
 Installing and configuring a runner is covered by the
