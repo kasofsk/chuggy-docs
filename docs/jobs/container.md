@@ -68,7 +68,12 @@ and hands it back, unchanged, to setup and check lines and the agent's shells.
 ## Workspace and checkout
 
 `/workspace` is a volume of the job's own, empty when the job starts and
-removed with it. It has no size limit.
+removed with it. It has no size limit of its own. A chuggy-linux runner keeps
+`diskFreeGibMin` free on the disk its engine stores on, 20 GiB by default:
+
+- **Under that,** it takes no new job.
+- **Under half of it,** it stops a running job, whose ticket then shows **Disk
+  low** until you free space on the runner and resume it.
 
 chuggy clones the repository into `/workspace/repository`, with its full
 history, and checks out the job's commit detached. That path is the same for
@@ -160,7 +165,9 @@ the runner's `timeoutSecsMax`.
 
 The container and its workspace volume are removed, and the runner keeps the
 job's log. On the runner's machine, a file the job wrote outlives it only on one of the
-runner's volumes.
+runner's volumes. A chuggy-linux runner removes an image it pulled for jobs once
+none has used it for `imageUnusedSecsMax`, a week by default, and never one
+that was already on the machine.
 
 ## Sessions
 
