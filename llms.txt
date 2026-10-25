@@ -12,6 +12,10 @@
 - [Build caches](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/build-caches.md): baking dependencies into the image, owner volumes, a cache service such as sccache with Redis, and BuildKit cache mounts, with each one's cost.
 - [Sizing a stage](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/sizing.md): CPUs and memory per workload in a version 2 configuration and per stage in version 1, defaults and limits.
 
+## Repositories
+
+- [A repository's settings](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/repository.md): the Workflow files setting that lets jobs change .github/workflows, and a ruleset that protects the default branch while every landing still works.
+
 ## Optional
 
 - [chuggy-linux README](https://github.com/kasofsk/chuggy-linux): installing, registering and configuring a Linux runner, including runner.json's engineSocket, images, volumes, network, environment, disk floor and image cleanup.
