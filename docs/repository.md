@@ -1,0 +1,54 @@
+---
+title: A repository's settings
+description: Letting jobs change GitHub workflow files, and protecting the default branch.
+---
+
+# A repository's settings
+
+Each repository a project binds has a page in the console, under
+**Repositories**. Only administrators of the project or its workspace can
+change its settings.
+
+## Workflow files
+
+GitHub refuses a push that adds or changes a file under `.github/workflows`
+unless the push's token carries the Workflows permission. chuggy asks for it
+only for a repository whose **Workflow files** setting is On. It is Off by
+default.
+
+To let jobs change workflow files:
+
+1. On GitHub, accept the Workflows permission for both of chuggy's apps,
+   Chuggy Worker and Chuggy Portal, on the installations held by the account
+   that owns the repository. An organization accepts on its own installations,
+   apart from its members' personal ones.
+2. On the repository's page, set **Workflow files** to On.
+
+With it Off, or before both apps hold Workflows, a ticket that changes a
+workflow file fails: at its job's push, which the ticket shows as **Push
+failed** with GitHub's refusal as the reason, or at its landing. Leave it Off
+unless jobs need it, because a workflow runs with the repository's Actions
+secrets.
+
+## Protecting the default branch
+
+A repository chuggy creates for a project starts with a ruleset on its default
+branch, `chuggy portal + admins own main`, which lets only Chuggy Portal and
+the repository's administrators update or delete the branch. Chuggy Portal is
+the app that lands a finished ticket, so a **Push** or **Pull request, then
+merge** landing works under it. The pull request a **Pull request** landing
+opens can be merged only by a repository administrator.
+
+For a repository you bound to a project, add the same ruleset on GitHub. In the
+repository's **Settings**, open **Rulesets** and add a branch ruleset:
+
+- Name it `chuggy portal + admins own main`, and set **Enforcement status** to
+  **Active**. A new ruleset starts Disabled, and is not enforced until then.
+- Target the default branch.
+- Turn on **Restrict updates**, **Restrict deletions** and **Block force
+  pushes**.
+- In the bypass list, add the Chuggy Portal app and the Repository admin role.
+
+GitHub offers rulesets on a private repository only with GitHub Pro, Team or
+Enterprise Cloud. On a private repository without one, chuggy cannot add its
+ruleset when it creates the repository, and you cannot add one either.

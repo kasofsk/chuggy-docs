@@ -31,3 +31,5 @@ it.
   compiled output between jobs, and what each costs.
 - [Sizing a stage](jobs/sizing.md) shows how a configuration asks for CPUs and
   memory.
+- [A repository's settings](repository.md) covers letting jobs change GitHub
+  workflow files, and protecting the default branch.
