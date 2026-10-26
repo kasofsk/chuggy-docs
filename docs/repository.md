@@ -40,9 +40,10 @@ repository's administrators update or delete the branch. Chuggy Portal is the
 app that lands a finished ticket, so a **Push** or **Pull request, then merge**
 landing works under it. With it, a collaborator who is not a repository
 administrator cannot merge the pull request a **Pull request** landing opens.
-A **Push** landing that a ruleset or hook declines is built and pushed again, in
-case the decline passes, then holds as **Push declined** and shows under
-**Needs you**: change the rule, then press **Resume**.
+A **Push** landing onto a branch the repository already has, which a ruleset or
+hook declines, is built and pushed again in case the decline passes, then holds
+as **Push declined** and shows under **Needs you**: change the rule, then press
+**Resume**.
 
 To add it, open the repository's **Settings** on GitHub, then **Rulesets**, and
 add a branch ruleset:
