@@ -9,7 +9,7 @@
 - [Jobs on the runner's machine](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/host.md): workloads that name capabilities instead of an image, how to require an image a runner provides, and how a job run outside a container differs.
 - [The project's image](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/image.md): what an image needs, how a configuration names it, how runners get it, a self-check and a starting Dockerfile.
 - [Docker in a job](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/docker.md): the docker client, the runner's engine socket, mounting the checkout, networks, docker compose, and cleaning up.
-- [Build caches](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/build-caches.md): baking dependencies into the image, owner volumes, a cache service such as sccache with Redis, and BuildKit cache mounts, with each one's cost.
+- [Build caches](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/build-caches.md): baking dependencies into the image, owner volumes shared or per project, a cache service such as sccache with Redis, and BuildKit cache mounts, with each one's cost.
 - [Sizing a stage](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/sizing.md): CPUs and memory per workload in a version 2 configuration and per stage in version 1, defaults and limits.
 
 ## Repositories
@@ -18,6 +18,6 @@
 
 ## Optional
 
-- [chuggy-linux README](https://github.com/kasofsk/chuggy-linux): installing, registering and configuring a Linux runner, including runner.json's engineSocket, images, volumes, network, environment, disk floor, memory budget and image cleanup.
+- [chuggy-linux README](https://github.com/kasofsk/chuggy-linux): installing, registering and configuring a Linux runner, including runner.json's engineSocket, images, volumes and their per-project scope, network, environment, per-pool limits, disk floor, memory budget and image cleanup.
 - [chuggy-darwin README](https://github.com/kasofsk/chuggy-darwin): installing, registering and configuring a Mac runner, which runs jobs in Colima's Linux VM.
 - [Configuration JSON Schema](https://chuggy.vteng.io/api/v1/configuration-schema): every key a configuration file can hold.
