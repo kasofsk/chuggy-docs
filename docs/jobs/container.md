@@ -159,7 +159,8 @@ shows the second for PostgreSQL.
 A job gets the CPUs and memory its configuration asks for, 2 CPUs and 4096 MiB
 unless it asks otherwise ([Sizing a stage](sizing.md)), as the container's
 limits. A job is stopped at the sooner of the deadline chuggy sets for it and
-the runner's `timeoutSecsMax`.
+the runner's `timeoutSecsMax`, both counted from when its container starts on a
+chuggy-linux runner.
 
 ## When it ends
 
