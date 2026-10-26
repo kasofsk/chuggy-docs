@@ -86,11 +86,27 @@ can write it. A `target` cannot be at, inside or above `/opt/chuggy`,
 spellings. The [chuggy-linux README](https://github.com/kasofsk/chuggy-linux#configure)
 has the rest.
 
+A named volume listed with `"scope": "project"` is one per project instead.
+Each project's jobs mount a volume of their own, named for the source and the
+project, and a job is never handed another project's:
+
+```json
+"volumes": [{ "source": "npm-cache", "target": "/cache/npm", "scope": "project" }]
+```
+
+A directory cannot be scoped. `scope` needs chuggy-linux 0.18.0 or later, since
+an earlier copy refuses the file, and a personal runner mounts a scoped volume
+from 0.19.0.
+
 **Cost.** The runner's owner sets it up on each machine, and the first job on
-each runs cold. One volume serves every project and job on the machine, including
-jobs running at the same time, so it suits a tool whose cache is safe to share, as
-npm's and Cargo's are. One project's job can read and change what another's
-wrote there. Nothing removes a volume or limits its size. Sessions and
+each, or of each project for a scoped volume, runs cold. An unscoped volume
+serves every project and job on the machine, including jobs running at the same
+time, so it suits a tool whose cache is safe to share, as npm's and Cargo's are.
+One project's job can read and change what another's wrote there. A scoped
+volume is shared the same way by the jobs of its one project, and hides nothing
+from whatever reaches the engine, such as a job handed its socket or one on the
+runner's machine.
+Nothing removes a volume or limits its size. Sessions and
 [jobs on the runner's machine](host.md) do not get it.
 
 ## A cache service on the runner's network
@@ -128,8 +144,8 @@ linker, such as binaries and proc-macros, which every job compiles again.
 Other tools with remote caches, such as Bazel and Gradle, work the same way.
 
 **Cost.** A server for the runner's owner to run and keep, and a network round
-trip for each compilation. Like a volume, it is shared by every project
-on the machine. Without `--maxmemory`, nothing limits its size.
+trip for each compilation. Like an unscoped volume, it is shared by every
+project on the machine. Without `--maxmemory`, nothing limits its size.
 
 ## BuildKit cache mounts through the socket
 
