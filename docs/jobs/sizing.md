@@ -62,5 +62,15 @@ is smaller refuses the job, which blocks the job and escalates its ticket, with
 the runner's reason shown on the job. Ask for no more than the smallest runner
 of the project has.
 
+A chuggy-linux runner also keeps a memory budget: its engine's memory less
+`memoryFreeGibMin`, 2 GiB by default. Against it the runner counts every
+container running on that engine, whichever runner started it. A job it has
+room for starts at once. One it has taken but has no room for yet waits on the
+runner, shown on its ticket as starting, until what runs before it frees
+enough memory; one still waiting at its deadline fails and is run again. While
+a job waits, no runner on that engine takes another job. A job asking more
+than the whole budget is refused like one asking more than the machine, and
+its ticket escalates as Nowhere to run this work.
+
 A job on the runner's own machine ([Jobs on the runner's machine](host.md)) is
 checked against that machine, and then runs with no limit.
