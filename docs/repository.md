@@ -35,8 +35,8 @@ secrets.
 A ruleset on a repository's default branch can let only Chuggy Portal and the
 repository's administrators update or delete the branch. Chuggy Portal is the
 app that lands a finished ticket, so a **Push** or **Pull request, then merge**
-landing works under it. The pull request a **Pull request** landing opens can
-then be merged only by a repository administrator.
+landing works under it. With it, a collaborator who is not a repository
+administrator cannot merge the pull request a **Pull request** landing opens.
 
 To add it, open the repository's **Settings** on GitHub, then **Rulesets**, and
 add a branch ruleset:
