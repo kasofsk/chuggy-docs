@@ -69,9 +69,9 @@ use outside every container, as its
 Against it the runner counts every container running on that engine, whichever
 runner started it. A job starts once it has room and no job that began waiting
 before it on that engine still waits. Until then it waits on the runner, shown
-on its ticket as starting; one still waiting at its deadline fails as a job
-lost on its runner, which chuggy resumes by itself up to its retry limit and
-after that leaves to you. While a job waits, no runner on that engine takes
+on its ticket as starting; one whose deadline comes too near for it to start
+fails as a job lost on its runner, which chuggy resumes by itself up to its
+retry limit and after that leaves to you. While a job waits, no runner on that engine takes
 another job. A job asking more than the whole budget is refused like one asking
 more than the machine, and its ticket escalates as Nowhere to run this work.
 
