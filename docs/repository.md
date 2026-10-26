@@ -24,9 +24,12 @@ To let jobs change workflow files:
    apart from its members' personal ones.
 2. On the repository's page, set **Workflow files** to On.
 
-With it Off, or before both apps hold Workflows, a ticket that changes a
-workflow file fails: at its job's push, which the ticket shows as **Push
-failed** with GitHub's refusal as the reason, or at its landing. Leave it Off
+With it Off, or before both apps hold Workflows, GitHub refuses a ticket's
+change to a workflow file. At its job's push, the ticket shows **Push failed**
+with GitHub's refusal as the reason. At a **Push** landing onto a branch the
+repository already has, the landing holds as **Workflow files refused** and the
+ticket then shows it under **Needs you**: turn the setting On, accept the
+permission, then press **Resume**. Leave it Off
 unless jobs need it, because a workflow runs with the repository's Actions
 secrets.
 
@@ -37,6 +40,10 @@ repository's administrators update or delete the branch. Chuggy Portal is the
 app that lands a finished ticket, so a **Push** or **Pull request, then merge**
 landing works under it. With it, a collaborator who is not a repository
 administrator cannot merge the pull request a **Pull request** landing opens.
+A **Push** landing onto a branch the repository already has, which a ruleset or
+hook declines, is built and pushed again in case the decline passes, then holds
+as **Push declined** and shows under **Needs you**: change the rule, then press
+**Resume**.
 
 To add it, open the repository's **Settings** on GitHub, then **Rulesets**, and
 add a branch ruleset:
