@@ -14,7 +14,7 @@
 
 ## Repositories
 
-- [A repository's settings](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/repository.md): the Workflow files setting that lets jobs change .github/workflows, and a GitHub ruleset that protects the default branch as chuggy's own does.
+- [A repository's settings](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/repository.md): the Workflow files setting that lets jobs change .github/workflows, and a GitHub ruleset that protects the default branch.
 
 ## Optional
 
