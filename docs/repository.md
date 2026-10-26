@@ -32,23 +32,22 @@ secrets.
 
 ## Protecting the default branch
 
-A repository chuggy creates for a project starts with a ruleset on its default
-branch, `chuggy portal + admins own main`, which lets only Chuggy Portal and
-the repository's administrators update or delete the branch. Chuggy Portal is
-the app that lands a finished ticket, so a **Push** or **Pull request, then
-merge** landing works under it. The pull request a **Pull request** landing
-opens can be merged only by a repository administrator.
+A ruleset on a repository's default branch can let only Chuggy Portal and the
+repository's administrators update or delete the branch. Chuggy Portal is the
+app that lands a finished ticket, so a **Push** or **Pull request, then merge**
+landing works under it. The pull request a **Pull request** landing opens can
+then be merged only by a repository administrator.
 
-For a repository you bound to a project, add the same ruleset on GitHub. In the
-repository's **Settings**, open **Rulesets** and add a branch ruleset:
+To add it, open the repository's **Settings** on GitHub, then **Rulesets**, and
+add a branch ruleset:
 
-- Name it `chuggy portal + admins own main`, and set **Enforcement status** to
-  **Active**. A new ruleset starts Disabled, and is not enforced until then.
+- Give it a name, such as `chuggy portal + admins own main`, and set
+  **Enforcement status** to **Active**. A new ruleset starts Disabled, and is
+  not enforced until then.
 - Target the default branch.
 - Turn on **Restrict updates**, **Restrict deletions** and **Block force
   pushes**.
 - In the bypass list, add the Chuggy Portal app and the Repository admin role.
 
 GitHub offers rulesets on a private repository only with GitHub Pro, Team or
-Enterprise Cloud. On a private repository without one, chuggy cannot add its
-ruleset when it creates the repository, and you cannot add one either.
+Enterprise Cloud, so a private repository without one cannot have this ruleset.
