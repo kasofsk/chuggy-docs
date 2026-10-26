@@ -99,11 +99,13 @@ an earlier copy refuses the file, and a personal runner mounts a scoped volume
 from 0.19.0.
 
 **Cost.** The runner's owner sets it up on each machine, and the first job on
-each runs cold. An unscoped volume serves every project and job on the machine,
-including jobs running at the same time, so it suits a tool whose cache is safe
-to share, as npm's and Cargo's are, and one project's job can read and change
-what another's wrote there. A scoped volume is shared the same way by the jobs
-of its one project, and hides nothing from a job handed the engine socket.
+each, or of each project for a scoped volume, runs cold. An unscoped volume
+serves every project and job on the machine, including jobs running at the same
+time, so it suits a tool whose cache is safe to share, as npm's and Cargo's are.
+One project's job can read and change what another's wrote there. A scoped
+volume is shared the same way by the jobs of its one project, and hides nothing
+from whatever reaches the engine, such as a job handed its socket or one on the
+runner's machine.
 Nothing removes a volume or limits its size. Sessions and
 [jobs on the runner's machine](host.md) do not get it.
 
