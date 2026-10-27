@@ -28,8 +28,13 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
   the change; each evaluation stage after it runs checks or a reviewing agent;
   finalization lands what passed, with a person's approval where the
   configuration requires one.
-- **Job.** One stage's run, on one runner. [Jobs](jobs/index.md) covers what
-  a job runs in and how to make it fast.
+- **Task.** What a ticket owes at one stage: the one work task of a cycle,
+  or one evaluator's task in one evaluation stage. A task is retried until it
+  is fulfilled or the ticket parks.
+- **Job.** One run of a task on one runner: a container, or a process on the
+  machine itself, with its own log and exit. A task that fails may be run as
+  more than one job. [Jobs](jobs/index.md) covers what a job runs in and how
+  to make it fast.
 - **Runner.** A machine registered to run a project's jobs: a shared pool, or
   one member's own. [Runners](runners.md) covers the three packages and how
   work is placed.

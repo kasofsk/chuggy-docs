@@ -9,8 +9,9 @@ A project's configuration is a file in its repository that names the stages a
 change goes through. In the work stage an agent makes the change. Each
 evaluation stage after it runs one or more evaluators, each either a list of
 check commands or a reviewing agent; a version 2 configuration calls the work
-and each evaluator a workload. chuggy runs the work, and each evaluator,
-as a job on one of the project's runners. A runner is a machine its owner
+and each evaluator a workload. The work and each evaluator are tasks the
+ticket owes at that stage; each run of a task on one of the project's
+runners is a job, and a task that fails may be run as more than one. A runner is a machine its owner
 registered to run the project's jobs, with
 [chuggy-linux](https://github.com/kasofsk/chuggy-linux) on Linux or
 [chuggy-darwin](https://github.com/kasofsk/chuggy-darwin) on a Mac, which runs
