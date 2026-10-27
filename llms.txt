@@ -26,6 +26,6 @@
 
 ## Optional
 
-- [chuggy-linux README](https://github.com/kasofsk/chuggy-linux): installing, registering and configuring a Linux runner, including runner.json's engineSocket, images, volumes and their per-project scope, network, environment, per-pool limits, disk floor, memory budget and reserve, and image cleanup.
+- [chuggy-linux README](https://github.com/kasofsk/chuggy-linux): installing, registering and configuring a Linux runner, including runner.json's engineSocket, images, volumes and their per-project scope, network, environment, per-pool limits, disk floor, memory budget and ceiling, and image cleanup.
 - [chuggy-darwin README](https://github.com/kasofsk/chuggy-darwin): installing, registering and configuring a Mac runner, which runs jobs in Colima's Linux VM.
 - [Configuration JSON Schema](https://chuggy.vteng.io/api/v1/configuration-schema): every key a configuration file can hold.

@@ -70,15 +70,17 @@ Against it the runner counts every container running on that engine, whichever
 runner started it. Each poll tells chuggy the room that count leaves and the
 runner's ceiling, the budget less what its file's `memoryReservedGib` keeps for
 what always runs beside jobs, and chuggy offers the runner only jobs that fit
-both; the runners sharing an engine take them one at a time, so no two are
-given the same room. A job no runner of the project has room for waits in
-chuggy, shown on its ticket as starting, and smaller jobs released after it may
-run first; it runs once a runner has the room. A job asking more than every
-runner's ceiling is blocked at once, and its ticket escalates as Too large for
-every runner: ask for less, or raise a runner's budget or lower its reserve.
+both; one user's runners sharing an engine take them one at a time, so no two
+are given the same room. A job no runner of the project has room for waits in
+chuggy, and smaller jobs released after it may run first; it runs once a runner
+has the room. A job asking more than every runner's ceiling is blocked at once,
+and its ticket escalates as Too large for every runner: raise a runner's
+ceiling, by its budget or its `memoryReservedGib`, or ask for less in the
+tickets released after.
 
-A job a runner took and then found no room for, as happens when two runners on
-one engine are given jobs together, waits on that runner. It starts once it has
+A job a runner took and then found no room for, as happens when two users'
+runners on one engine are given jobs together or what else the engine runs
+grows meanwhile, waits on that runner. It starts once it has
 room and no job that began waiting before it on that engine still waits; one
 whose deadline comes too near for it to start fails as a job lost on its runner,
 which chuggy resumes by itself up to its retry limit and after that leaves to
