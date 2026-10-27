@@ -1,35 +1,53 @@
 ---
-title: Jobs
-description: What chuggy runs a project's stages in, and how to make them fast.
+title: Introduction
+description: What chuggy is, the words it uses, and where to start.
 ---
 
-# Jobs
+# Introduction
 
-A project's configuration is a file in its repository that names the stages a
-change goes through. In the work stage an agent makes the change. Each
-evaluation stage after it runs one or more evaluators, each either a list of
-check commands or a reviewing agent; a version 2 configuration calls the work
-and each evaluator a workload. chuggy runs the work, and each evaluator,
-as a job on one of the project's runners. A runner is a machine its owner
-registered to run the project's jobs, with
-[chuggy-linux](https://github.com/kasofsk/chuggy-linux) on Linux or
-[chuggy-darwin](https://github.com/kasofsk/chuggy-darwin) on a Mac, which runs
-jobs in Colima's Linux VM. Each one's README covers installing and configuring
-it.
+chuggy coordinates software work done by people and AI agents together. A
+piece of work is a ticket. Tickets say what they wait on, so a project's work
+is one graph, and every ticket moves through the same stages: an agent does
+the work, checks and reviewing agents evaluate it, and it lands in the
+repository. The work runs on machines you register, with your own model
+accounts, and chuggy keeps the record of what ran, what it decided, and why.
 
-- [A job's container](jobs/container.md) lists what chuggy sets for every
-  job in a container: how it starts, its user, environment, checkout, passing
-  variables from setup, mounts, network and size.
-- [Jobs on the runner's machine](jobs/host.md) covers a job that asks for
-  capabilities in place of an image, and what changes when it runs outside a
-  container.
-- [The project's image](jobs/image.md) says what an image needs, how a
-  configuration names it, and gives a Dockerfile to start from.
-- [Docker in a job](jobs/docker.md) covers a check that runs `docker`, and the
-  runner's engine socket.
-- [Build caches](jobs/build-caches.md) gives four ways to keep dependencies and
-  compiled output between jobs, and what each costs.
-- [Sizing a stage](jobs/sizing.md) shows how a configuration asks for CPUs and
-  memory.
-- [A repository's settings](repository.md) covers letting jobs change GitHub
-  workflow files, and protecting the default branch.
+## The words
+
+- **Workspace.** The top of the tree: the people, the connected GitHub
+  accounts, and the projects. An invite link makes one or adds you to one.
+- **Project.** A set of repositories worked on together, with its own
+  tickets, runners, and, optionally, a lead. Every ticket belongs to one
+  project.
+- **Repository.** A GitHub repository the project binds. It holds the
+  project's [configurations](configuration.md) under `.chug/configurations/`.
+- **Ticket.** One piece of work: a title, what is asked, what to read first,
+  which configuration runs it, and the branch it lands on. A ticket is a
+  draft until it is released, and it may wait on other tickets.
+- **Stage.** A step a ticket moves through. In the work stage an agent makes
+  the change; each evaluation stage after it runs checks or a reviewing agent;
+  finalization lands what passed, with a person's approval where the
+  configuration requires one.
+- **Task.** What a ticket owes at one stage: the one work task of a cycle,
+  or one evaluator's task in one evaluation stage. A task is retried until it
+  is fulfilled or the ticket parks.
+- **Job.** One run of a task on one runner: a container, or a process on the
+  machine itself, with its own log and exit. A task that fails may be run as
+  more than one job. [Jobs](jobs/index.md) covers what a job runs in and how
+  to make it fast.
+- **Runner.** A machine registered to run a project's jobs: a shared pool, or
+  one member's own. [Runners](runners.md) covers the three packages and how
+  work is placed.
+- **Thread.** A chat with an agent that acts on your behalf in a project: it
+  reads the project, drafts tickets, and releases them on your word.
+- **Lead.** A project's own agent that watches the whole graph rather than one
+  ticket. It proposes what to run next, holds a ticket that would conflict
+  with work in flight and says why, and answers members' questions. Its
+  decisions are in a log; the ones it holds for a person are in the inbox.
+
+## Where to start
+
+[Getting started](getting-started.md) walks from an invite to a first ticket
+landed. [Tools for your coding agent](tools.md) gives Claude Code the same
+tools a thread has, so you can file and follow tickets from your own
+terminal. The rest of these pages are reference.

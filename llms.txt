@@ -1,10 +1,18 @@
 # chuggy docs
 
-> chuggy runs each stage of a project's change (the agent's work, then checks and reviews) as a job on one of the project's runners, machines registered with chuggy-linux on Linux or chuggy-darwin on a Mac. A job runs in a container of the image the project's configuration names, as uid 1000, with chuggy's runtime mounted read-only at /opt/chuggy and the repository checked out at /workspace/repository. A workload can name capabilities in place of an image, which a runner meets with an image of its own or on its own machine.
+> chuggy coordinates software work done by people and AI agents together: tickets in one graph, each run as jobs on machines you register, with your own model accounts. chuggy runs each stage of a project's change (the agent's work, then checks and reviews) as a job on one of the project's runners, machines registered with chuggy-linux on Linux or chuggy-darwin on a Mac. A job runs in a container of the image the project's configuration names, as uid 1000, with chuggy's runtime mounted read-only at /opt/chuggy and the repository checked out at /workspace/repository. A workload can name capabilities in place of an image, which a runner meets with an image of its own or on its own machine.
+
+## Using chuggy
+
+- [Introduction](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/index.md): what chuggy is and the words it uses: workspace, project, repository, ticket, stage, job, runner, thread, lead.
+- [Getting started](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/getting-started.md): an invite, a project, connecting GitHub and its two apps, a configuration, a runner, filing a ticket by hand or in a thread, watching it, the inbox.
+- [Runners](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/runners.md): chuggy-linux, chuggy-darwin and chuggy-windows; shared pools and a member's own runner; registering with a token; credentials stay on the machine.
+- [Tools for your coding agent](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/tools.md): `chuggy-linux mcp` serves the chuggy tools to Claude Code under your own sign-in; the reading tools, the authoring tools, and that the lead's decision tools are not among them.
+- [Configuration](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/configuration.md): the file under `.chug/configurations/`: image, workloads, plans, finalizers and defaults; landings and approval; the published JSON Schema.
 
 ## Jobs
 
-- [Overview](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/index.md): the terms (configuration, stage, check, job, workload, runner) and the page list.
+- [Jobs](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/index.md): the terms (configuration, stage, check, job, workload, runner) and the page list.
 - [A job's container](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/container.md): start, user, environment variables, checkout, passing variables from setup with CHUG_ENV, reading the project's repositories, mounts, network, size, lifetime.
 - [Jobs on the runner's machine](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/host.md): workloads that name capabilities instead of an image, how to require an image a runner provides, and how a job run outside a container differs.
 - [The project's image](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/jobs/image.md): what an image needs, how a configuration names it, how runners get it, a self-check and a starting Dockerfile.
