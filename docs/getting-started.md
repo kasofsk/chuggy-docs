@@ -69,6 +69,8 @@ Once released, a ticket waits for the tickets it depends on, then runs: the
 work stage on a runner, each evaluation stage after it, and finalization. A
 failed check sends the work back with the reason. Work that fails too often
 parks, and the ticket appears in the inbox for a person.
+[A ticket](tickets.md) names each phase, says who moves a ticket out of each,
+and shows a brief.
 
 ## Watching it
 

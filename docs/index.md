@@ -24,6 +24,7 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
 - **Ticket.** One piece of work: a title, what is asked, what to read first,
   which configuration runs it, and the branch it lands on. A ticket is a
   draft until it is released, and it may wait on other tickets.
+  [A ticket](tickets.md) covers its phases and its brief.
 - **Stage.** A step a ticket moves through. In the work stage an agent makes
   the change; each evaluation stage after it runs checks or a reviewing agent;
   finalization lands what passed, with a person's approval where the
