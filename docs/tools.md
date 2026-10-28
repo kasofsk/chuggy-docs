@@ -11,9 +11,13 @@ and files tickets into it without leaving your terminal. The Linux runner
 package serves them over MCP:
 
 ```sh
-npm i -g https://github.com/kasofsk/chuggy-linux/releases/latest/download/chuggy-linux.tgz
+npm i -g https://github.com/kasofsk/chuggy-linux/releases/download/v0.33.0/chuggy-linux-0.33.0.tgz
 claude mcp add chuggy -- chuggy-linux mcp --site <site> --workspace <workspace> --project <project>
 ```
+
+That URL is pinned to a release; see the
+[chuggy-linux README](https://github.com/kasofsk/chuggy-linux) for the
+current one.
 
 `mcp` takes no runner registration. The first call with no sign-in answers
 with the site's sign-in address for the agent to hand you; the sign-in
