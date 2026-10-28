@@ -32,8 +32,10 @@ They are the tools a session in chuggy has, for one project, in three groups.
 `read_run_transcript`, `read_run_error`, `read_ticket_landings`,
 `read_ticket_refusals`, `read_refusals`, `read_decision_log`, `read_lead`,
 `read_lead_transcript`, `read_operation`, `list_threads`, `read_thread`,
-`read_thread_transcript` and `fetch_image`. Everything the console shows,
-one page at a time, each answer naming its cursor.
+`read_thread_transcript`, `fetch_image` and `read_docs`. Everything the console
+shows, one page at a time, each answer naming its cursor; and these docs,
+`read_docs` answering their index with no argument and one page by the address
+the index lists it at.
 
 **Authoring.** `create_draft` files a ticket; `file_dependent` files one that
 waits on another; `initialize_draft` and `revise_draft` shape a draft;
