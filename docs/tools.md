@@ -43,8 +43,8 @@ waits on another; `initialize_draft` and `revise_draft` shape a draft;
 revises a released ticket that has not started; `revoke_ticket` ends one;
 `dispatch_ticket` starts a released ticket now, where you may dispatch.
 
-**Not deciding.** The lead's tools, which hold and lift tickets, are not
-served here. A coding agent with these tools acts as you in the project: it
+**Not deciding.** The lead's tools, which choose, hold and lift tickets, are
+not served here. A coding agent with these tools acts as you in the project: it
 dispatches only what you may, and it never acts as the project's lead.
 
 ## What to ask it

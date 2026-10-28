@@ -22,7 +22,8 @@ below until it is Done or Revoked.
   to Work with the reason.
 - **Finalization.** The passed change lands by a push, a pull request, or a
   pull request that is then merged, after a person's approval where the
-  configuration asks for one.
+  configuration asks for one. A landing that conflicts with its target sends
+  the work back to Work with the conflict.
 - **Done.** The landing succeeded. Under a **Pull request** landing, its pull
   request is open for a person to merge.
 - **Escalated.** Parked for a person: its run stopped at a step such as its
@@ -87,8 +88,10 @@ a ticket in this order:
 
 1. `list_repositories`. Each row's `repository` is a clone URL a brief can
    name, unless the row carries `retiredAt`.
-2. `list_configurations`. Take the newest revision whose
-   `provenance.repository` is that repository; the list is newest first.
+2. `list_configurations`. Where the repository's row has `configurationsHeld`
+   `Bootstrapped`, use the `revision` it names. Otherwise take the newest
+   revision whose `provenance.repository` is that repository; the list is
+   newest first.
 3. `initialize_draft` with that `revision`. It answers the fence,
    `fence.projectSequence` and `fence.configurationDigest`, and `defaults`.
 4. `create_draft` with the revision as `configurationRevision`, the fence as
