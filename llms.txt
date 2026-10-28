@@ -1,6 +1,6 @@
 # chuggy docs
 
-> chuggy coordinates software work done by people and AI agents together: tickets in one graph, each run as jobs on machines you register, with your own model accounts. chuggy runs each stage of a project's change (the agent's work, then checks and reviews) as a job on one of the project's runners, machines registered with chuggy-linux on Linux or chuggy-darwin on a Mac. A job runs in a container of the image the project's configuration names, as uid 1000, with chuggy's runtime mounted read-only at /opt/chuggy and the repository checked out at /workspace/repository. A workload can name capabilities in place of an image, which a runner meets with an image of its own or on its own machine.
+> chuggy coordinates software work done by people and AI agents together: tickets in one graph, each run as jobs on machines you register, with your own model accounts. chuggy runs each stage of a project's change (the agent's work, then checks and reviews) as a job on one of the project's runners, machines registered with chuggy-linux on Linux, chuggy-darwin on a Mac or chuggy-windows on Windows. A job runs in a container of the image the project's configuration names, as uid 1000, with chuggy's runtime mounted read-only at /opt/chuggy and the repository checked out at /workspace/repository. A workload can name capabilities in place of an image, which a runner meets with an image of its own or on its own machine.
 
 ## Using chuggy
 
@@ -29,4 +29,5 @@
 
 - [chuggy-linux README](https://github.com/kasofsk/chuggy-linux): installing, registering and configuring a Linux runner, including runner.json's engineSocket, images, volumes and their per-project scope, network, environment, per-pool limits, disk floor, memory budget and ceiling, and image cleanup.
 - [chuggy-darwin README](https://github.com/kasofsk/chuggy-darwin): installing, registering and configuring a Mac runner, which runs jobs in Colima's Linux VM.
+- [chuggy-windows README](https://github.com/kasofsk/chuggy-windows): installing, registering and configuring a Windows runner, which runs jobs in Docker Desktop's Linux containers.
 - [Configuration JSON Schema](https://chuggy.vteng.io/api/v1/configuration-schema): every key a configuration file can hold.
