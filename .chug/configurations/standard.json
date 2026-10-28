@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "name": "standard",
+  "configuration": {
+    "version": 2,
+    "image": "docker.io/library/node@sha256:14078204b6bb268c107ceff6d3c43f45a888105e5c2b18b14c32b3409d93a1b0",
+    "workloads": {
+      "work": {
+        "runner": "Agent",
+        "prompt": { "path": ".chug/prompts/work.md" },
+        "worker": {
+          "mode": { "type": "SingleAgent", "agent": "Claude", "arguments": [] },
+          "setup": [],
+          "files": []
+        }
+      },
+      "checks": {
+        "runner": "Commands",
+        "commands": ["node .chug/checks/check-links.mjs"],
+        "worker": {
+          "setup": [],
+          "files": []
+        }
+      },
+      "review": {
+        "runner": "Agent",
+        "purpose": "Review",
+        "prompt": { "path": ".chug/prompts/review.md" },
+        "worker": {
+          "mode": { "type": "SingleAgent", "agent": "Claude", "arguments": [] },
+          "setup": [],
+          "files": []
+        }
+      }
+    },
+    "plans": {
+      "standard": [
+        { "name": "checks", "evaluators": ["checks"] },
+        { "name": "review", "evaluators": ["review"] }
+      ]
+    },
+    "defaults": { "work": "work", "evaluation": "standard" }
+  }
+}
