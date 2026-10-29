@@ -76,10 +76,10 @@ minutes of trying.
 - A `HOME`, and a temporary directory (`TMPDIR`, or `/tmp`), that uid 1000 can
   write. An image with no user of uid 1000 and no `HOME` in its `ENV` gives the
   job a `HOME` it cannot write (`/` on docker).
-- A build for `linux/amd64`, the platform chuggy's runtime is built for. A job
-  that names an image runs only on a runner whose containers are
-  `linux/amd64`, which rules out a Mac whose Colima VM is arm64, as it is by
-  default on Apple silicon.
+- A build for `linux/amd64`. A job that names an image runs only on a runner
+  that runs `linux/amd64` containers, as a Mac's arm64 Colima VM does where it
+  runs them through Rosetta. A multi-platform image with a `linux/arm64` build
+  too runs natively on such a Mac.
 - On a Mac runner, a `WORKDIR` outside `/workspace/repository`. A Mac runner
   does not yet start a job in `/workspace`, so docker makes the image's
   `WORKDIR` when the container starts, inside the job's workspace volume and

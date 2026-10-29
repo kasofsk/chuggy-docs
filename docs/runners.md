@@ -59,6 +59,8 @@ in it is scrubbed from what the job reports. Nothing of it is sent to chuggy.
 
 It takes an assignment only if the machine has the CPU and memory the job
 asks for and the credential its agent needs, pulls the image if it is
-missing, runs the job as uid 1000 with every capability dropped, keeps the
-assignment alive while the job runs, and saves the job's log when it ends.
+missing (on an Apple silicon Mac, its `linux/arm64` build where it has one,
+and otherwise its `linux/amd64` build, run through Rosetta), runs the job as
+uid 1000 with every capability dropped, keeps the assignment alive while the
+job runs, and saves the job's log when it ends.
 [A job's container](jobs/container.md) lists everything a job finds inside.
