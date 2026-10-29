@@ -90,7 +90,7 @@ a ticket in this order:
    name, unless the row carries `retiredAt`.
 2. `list_configurations`. Where the repository's row has `configurationsHeld`
    `Bootstrapped`, use the `revision` it names. Otherwise take the newest
-   revision whose `provenance.repository` is that repository; the list is
+   revision whose `repository` is that repository; the list is
    newest first.
 3. `initialize_draft` with that `revision`. It answers the fence,
    `fence.projectSequence` and `fence.configurationDigest`, and `defaults`.
