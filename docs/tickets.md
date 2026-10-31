@@ -16,6 +16,10 @@ below until it is Done or Revoked.
   ticket it depends on is Done, then until it is dispatched: the project's
   lead chooses it, or a person who may dispatch starts it. Where the project
   holds the lead's choices for approval, a person approves the choice first.
+  A dependency its own author revokes never finishes, so this ticket cannot be
+  dispatched until an update drops that dependency or this ticket is revoked
+  too; a read shows it in `revokedDependencies`, and the console draws the
+  ticket as blocked by that dependency.
 - **Work.** An agent makes the change on a runner, on the brief's branch.
 - **Evaluation.** The stages of the configuration's plan run in order, such
   as checks and then a reviewing agent. A stage that fails sends the work back
@@ -29,12 +33,30 @@ below until it is Done or Revoked.
 - **Escalated.** Parked for a person: its run stopped at a step such as its
   clone, setup or push, it failed evaluation too many times, it could not be
   run, or its landing could not go through. It waits in the inbox until a
-  person resumes it where it stopped or revokes it.
+  person resumes it where it stopped or revokes it. Where its run stopped at
+  a failed step, `escalation.failed` on `read_ticket` names the attempt that
+  stopped, and `read_run_error` answers that attempt's kept text — `The push
+  failed.` behind a stopped push, for one such step.
 - **Revoked.** Ended by a person while Pending, in Work, in Evaluation or
   Escalated. Work running for it is cancelled.
 
 Every phase after Draft is a value `list_tickets` takes as `phase`, and
 `NonTerminal`, on its own, takes all but Done and Revoked.
+
+## Its configuration
+
+A ticket is pinned to its configuration revision when it is released.
+`update_ticket` can move that pin to another revision, because it revises a
+ticket that has not yet started; an Escalated ticket has already started, so
+nothing moves its pin.
+
+On a version 1 configuration, administrators of the project or its workspace
+can still change what an Escalated ticket overrides, from the console: its
+worker's mode, its setup lines, its files, its practices, and its brief's
+motivation, acceptance criteria and constraints. A change that would move the
+ticket's definition — what it would actually run — is refused rather than
+taken. A catalog ticket, on a version 2 configuration, offers no overrides to
+change once it is parked.
 
 ## The brief
 
@@ -52,7 +74,12 @@ and its links as what to read first. Give these on every ticket:
   is refused.
 - **branch.** The `refs/heads/` branch the work happens on, which need not
   exist yet. Under a pull request landing it is a branch of the ticket's own,
-  never the branch the pull request opens into.
+  never the branch the pull request opens into. The work starts at the head
+  of this branch where the repository holds it, or else at the default
+  branch's head, under this name. A ticket filed to replace another's work
+  continues it by naming a branch that already holds that work, not by
+  telling its agent to check out a commit, which the attempt then refuses to
+  push.
 
 These are optional:
 

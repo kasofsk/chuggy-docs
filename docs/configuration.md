@@ -38,6 +38,22 @@ A key at any depth may not contain `password`, `secret`, `token` or
 and carries no secret. Credentials are read on the runner, which
 [Runners](runners.md) describes.
 
+## Importing
+
+chuggy reads a repository's `.chug/configurations/` at a commit and stores
+what it finds there as a new revision of each configuration the commit
+declares. One file it cannot read as a configuration refuses the whole
+commit's import, so a caller is never handed part of what the commit
+declares. Earlier revisions stay usable: tickets keep releasing against the
+previous one until a later commit imports cleanly.
+
+What is checked against a length limit is a configuration's canonical form:
+the file as JSON, with every prompt file it names by path stored inside it as
+text. That form may not pass 65,536 characters, the value
+`configurationCanonicalCharsMax` holds in `src/contract/http.ts`; a file
+whose canonical form would be longer refuses the same way a file chuggy
+cannot otherwise read does.
+
 The pages under [Jobs](jobs/index.md) cover what a workload runs in and how
 to make it fast: the container, host jobs, Docker inside a job, build caches,
 and sizing.
