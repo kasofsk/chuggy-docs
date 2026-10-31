@@ -41,11 +41,27 @@ shows, one page at a time, each answer naming its cursor; and these docs,
 `read_docs` answering their index with no argument and one page by the address
 the index lists it at.
 
+`read_configuration` answers a revision's canonical document whole where it
+fits in one answer. A configuration too large for that is read by `path`,
+keys walking into the document, such as `["workloads", "review", "prompt"]`:
+the value there comes back whole where it fits; an object or an array that
+does not comes back as the outline of its entries instead — each entry's
+child whole where that is short, and otherwise its kind, its entries and its
+length in characters; a string that does not comes back cut to fit. Either
+says how much is left, which `offset` reads on from.
+
 **Authoring.** `create_draft` files a ticket; `file_dependent` files one that
 waits on another; `initialize_draft` and `revise_draft` shape a draft;
 `release_draft` releases it; `delete_draft` discards it; `update_ticket`
 revises a released ticket that has not started; `revoke_ticket` ends one;
 `dispatch_ticket` starts a released ticket now, where you may dispatch.
+`create_draft`, `revise_draft` and `file_dependent` also take `overrides`:
+what the ticket replaces of its configuration, each field replacing that
+field's whole rather than merging into it. On a catalog it is `workloads`,
+keyed by the name a workload is replaced for; on any other configuration it
+is `worker`, `practices`, `brief` and `work`, which holds only
+`instructions`. Give a workload's whole `worker` to choose a different model
+for it, in place of carrying a copy of the workload just to change that.
 
 **Not deciding.** The lead's tools, which choose, hold and lift tickets, are
 not served here. A coding agent with these tools acts as you in the project: it
