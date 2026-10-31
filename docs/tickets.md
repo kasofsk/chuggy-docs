@@ -16,10 +16,10 @@ below until it is Done or Revoked.
   ticket it depends on is Done, then until it is dispatched: the project's
   lead chooses it, or a person who may dispatch starts it. Where the project
   holds the lead's choices for approval, a person approves the choice first.
-  A dependency its own author revokes never finishes, so this ticket cannot be
-  dispatched until an update drops that dependency or this ticket is revoked
-  too; a read shows it in `revokedDependencies`, and the console draws the
-  ticket as blocked by that dependency.
+  A dependency a project developer or admin revokes never finishes, so this
+  ticket cannot be dispatched until an update drops that dependency or this
+  ticket is revoked too; a read shows it in `revokedDependencies`, and the
+  console draws the ticket as blocked by that dependency.
 - **Work.** An agent makes the change on a runner, on the brief's branch.
 - **Evaluation.** The stages of the configuration's plan run in order, such
   as checks and then a reviewing agent. A stage that fails sends the work back
@@ -34,9 +34,10 @@ below until it is Done or Revoked.
   clone, setup or push, it failed evaluation too many times, it could not be
   run, or its landing could not go through. It waits in the inbox until a
   person resumes it where it stopped or revokes it. Where its run stopped at
-  a failed step, `escalation.failed` on `read_ticket` names the attempt that
-  stopped, and `read_run_error` answers that attempt's kept text — `The push
-  failed.` behind a stopped push, for one such step.
+  a failed step, `escalation.failed` on `read_ticket` names the step and the
+  attempt that stopped, and `read_run_error` on that attempt answers the
+  worker's own kept text for it — git's error behind a stopped push, for one
+  such step.
 - **Revoked.** Ended by a person while Pending, in Work, in Evaluation or
   Escalated. Work running for it is cancelled.
 
@@ -77,9 +78,7 @@ and its links as what to read first. Give these on every ticket:
   never the branch the pull request opens into. The work starts at the head
   of this branch where the repository holds it, or else at the default
   branch's head, under this name. A ticket filed to replace another's work
-  continues it by naming a branch that already holds that work, not by
-  telling its agent to check out a commit, which the attempt then refuses to
-  push.
+  continues it by naming a branch that already holds that work.
 
 These are optional:
 
