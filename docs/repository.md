@@ -32,6 +32,18 @@ turn the setting On, accept the permission, then press **Resume**. Leave it Off
 unless jobs need it, because a workflow runs with the repository's Actions
 secrets.
 
+## A refused import
+
+An import that [Configuration](configuration.md#importing) refuses keeps
+why, and shows it in three places. Under the repository's import line, on
+its own page, a line names the first file refused, its fault in the
+console's words — a configuration too long as its length against the limit,
+such as "140,412 of 131,072 characters" — and how many more files were
+refused. The project's ticket table and its Inbox each show a notice,
+"Import refused", naming the repository and linking to its page, with how
+many more repositories are refused. A binding later imported cleanly shows
+none of this, and a retired binding is never notified on.
+
 ## Protecting the default branch
 
 A ruleset on a repository's default branch can let only Chuggy Portal and the

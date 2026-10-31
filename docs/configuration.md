@@ -49,10 +49,34 @@ previous one until a later commit imports cleanly.
 
 What is checked against a length limit is a configuration's canonical form:
 the file as JSON, with every prompt file it names by path stored inside it as
-text. That form may not pass 65,536 characters, the value
+text. That form may not pass 131,072 characters, the value
 `configurationCanonicalCharsMax` holds in `src/contract/http.ts`; a file
 whose canonical form would be longer refuses the same way a file chuggy
-cannot otherwise read does.
+cannot otherwise read does. Inside that form, one workload's prompt, however
+it is written, may not itself pass 65,536 characters,
+`configurationPromptTextCharsMax`.
+
+A refusal keeps why. [A repository's settings](repository.md) says where
+that reason shows.
+
+## What length costs
+
+A job reads only the prompt of its own workload, and reads it on every turn
+of that job, so a long prompt costs on every turn of the job it belongs to,
+and nowhere else: the length of the rest of a configuration, and of every
+other workload's prompt, costs no turn anything.
+
+Keep a prompt short two ways:
+
+- Where a ticket only needs a different model for a workload, give it that
+  model through the ticket's `overrides` instead of a whole copy of the
+  workload. [Tools for your coding agent](tools.md) describes `overrides` on
+  the draft tools.
+- Keep rules several prompts share in one file under `.chug/`, and have each
+  of those prompts tell its agent to read it with
+  `git show "${CHUG_CHANGE_BASE:?}:<path>"` rather than from the checkout: a
+  reviewing agent must read the rules as they stood at the change's base, not
+  as the change itself may have left them.
 
 The pages under [Jobs](jobs/index.md) cover what a workload runs in and how
 to make it fast: the container, host jobs, Docker inside a job, build caches,

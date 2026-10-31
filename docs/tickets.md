@@ -37,7 +37,8 @@ below until it is Done or Revoked.
   a failed step, `escalation.failed` on `read_ticket` names the step and the
   attempt that stopped, and `read_run_error` on that attempt answers the
   worker's own kept text for it — git's error behind a stopped push, for one
-  such step.
+  such step. The ticket's card in the console draws this text whole below
+  its first line, not only on hover as it once did.
 - **Revoked.** Ended by a person while Pending, in Work, in Evaluation or
   Escalated. Work running for it is cancelled.
 
