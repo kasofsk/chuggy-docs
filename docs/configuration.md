@@ -111,8 +111,9 @@ Both show as `following` on `read_ticket`'s answer for the ticket — `Held`
 with the refusal's code, `Trimmed` on its own — and in the same words on the
 ticket's own page. `following` is read fresh against the repository's newest
 import every time it is asked, never stored, so the answer is only ever as
-of that newest import: a later one can turn a `Held` or `Trimmed` ticket
-`Current` or move it, or the other way around.
+of that newest import: a later one can turn a `Held` ticket `Current` or move
+it, or the other way around. No import changes `Trimmed`, which is decided
+from the revision the ticket holds.
 
 ## What length costs
 
