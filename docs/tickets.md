@@ -52,6 +52,17 @@ A ticket is pinned to its configuration revision when it is released.
 ticket that has not yet started; an Escalated ticket has already started, so
 nothing moves its pin.
 
+A ticket stays on the revision it was released on unless it follows: while
+it waits Pending, [Pinned and latest](configuration.md#pinned-and-latest)
+says when a ticket set to follow moves its own pin onto its repository's
+newest revision, and when it is held back instead. A move happens only
+where it changes what the ticket would actually run — the resolved
+definition, the finalizer selected, the plan's stage names or the catalog's
+outputs — never for a newest revision that only renames or rewords something
+the ticket's own selection does not reach. From dispatch on, every ticket is
+pinned: nothing follows past Pending, so Work, Evaluation and Finalization
+all run the revision the ticket held the moment it was dispatched.
+
 On a version 1 configuration, administrators of the project or its workspace
 can still change what an Escalated ticket overrides, from the console: its
 worker's mode, its setup lines, its files, its practices, and its brief's

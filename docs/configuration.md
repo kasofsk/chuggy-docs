@@ -59,6 +59,62 @@ it is written, may not itself pass 65,536 characters,
 A refusal keeps why. [A repository's settings](repository.md) says where
 that reason shows.
 
+## Pinned and latest
+
+A ticket is released pinned to one configuration revision, which [A
+ticket](tickets.md) describes. Two fields choose whether a ticket instead
+runs whatever its repository's newest import names under the same
+configuration: `defaults.configuration`, on the catalog, for a project still
+working on its configuration, so every ticket that chooses none of its own
+follows; and a ticket's own `selection.configuration`, for a ticket that
+needs the opposite of its catalog. Each holds `Pinned` or `Latest`; a
+ticket's own choice wins over its catalog's default, which stands wherever
+the ticket names none, and `Pinned` stands wherever neither does.
+
+A ticket keeps the rule of the revision it holds, not of the one its
+repository just imported: whether a ticket with no selection of its own
+follows is read off `defaults.configuration` on the revision the ticket is
+pinned to, every time it is asked. So a ticket already waiting, pinned to a
+revision whose defaults say `Pinned`, follows only once an update moves its
+pin onto a revision whose own defaults say `Latest` — turning a later
+revision's `defaults.configuration` to `Latest` does nothing by itself for a
+ticket already pinned behind it. The same holds in reverse: setting
+`defaults.configuration` back to `Pinned` stops a ticket that is already
+following only after its next move lands it on a revision that itself says
+`Pinned`, because that move is what makes the revision's
+`defaults.configuration` apply to it again. A ticket that must stop
+following now, rather than at its next move, names `Pinned` in its own
+`selection.configuration`.
+
+A moved ticket lands exactly as it was released to land. Its brief's
+finalization is resolved once, at the release or the revision that last
+wrote it, from the brief's own mode and target, else the finalizer it
+selected, else the repository's own landing; following a later revision onto
+a new pin never resolves it again, whatever that revision's finalizer now
+gives as `landing`.
+
+Leave a ticket pinned, rather than following, where someone signs off the
+ticket and its configuration together: a review that has to stay valid
+against the exact revision it approved, regardless of what the project
+imports afterward.
+
+## A ticket held back
+
+A Pending ticket that follows can still stay on the revision it holds rather
+than move onto the newest. `Held` carries the code a release would be
+refused with — the ticket, its held revision or the newest one is not one a
+release could run it against. `Trimmed` is a ticket whose program already
+runs less than its held plan — signed off running fewer stages than the plan
+lists, so it is left where it is without the newest import even being read.
+
+Both show as `following` on `read_ticket`'s answer for the ticket — `Held`
+with the refusal's code, `Trimmed` on its own — and in the same words on the
+ticket's own page. `following` is read fresh against the repository's newest
+import every time it is asked, never stored, so the answer is only ever as
+of that newest import: a later one can turn a `Held` ticket `Current` or move
+it, or the other way around. No import changes `Trimmed`, which is decided
+from the revision the ticket holds.
+
 ## What length costs
 
 A job reads only the prompt of its own workload, and reads it on every turn
