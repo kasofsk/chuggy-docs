@@ -41,14 +41,16 @@ shows, one page at a time, each answer naming its cursor; and these docs,
 `read_docs` answering their index with no argument and one page by the address
 the index lists it at.
 
-`read_configuration` answers a revision's canonical document whole where it
-fits in one answer. A configuration too large for that is read by `path`,
-keys walking into the document, such as `["workloads", "review", "prompt"]`:
-the value there comes back whole where it fits; an object or an array that
-does not comes back as the outline of its entries instead — each entry's
-child whole where that is short, and otherwise its kind, its entries and its
-length in characters; a string that does not comes back cut to fit. Either
-says how much is left, which `offset` reads on from.
+`read_configuration` with no `path` answers the route's body as it is where
+that fits in one answer; where it does not, the parsed canonical document is
+answered whole where that fits, and otherwise as its outline. A `path` walks
+into the parsed canonical instead, keys such as
+`["workloads", "review", "prompt"]`: the value there comes back whole where
+it fits; an object or an array that does not comes back as the outline of
+its entries instead — each entry's child whole where that is short, and
+otherwise its kind, its entries and its length in characters; a string that
+does not comes back cut to fit. Either says how much is left, which `offset`
+reads on from.
 
 **Authoring.** `create_draft` files a ticket; `file_dependent` files one that
 waits on another; `initialize_draft` and `revise_draft` shape a draft;
