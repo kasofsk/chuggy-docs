@@ -33,4 +33,5 @@ it.
 - [Sizing a stage](sizing.md) shows how a configuration asks for CPUs and
   memory.
 - [A repository's settings](../repository.md) covers letting jobs change GitHub
-  workflow files, and protecting the default branch.
+  workflow files, protecting the default branch, and landing through a merge
+  queue.
