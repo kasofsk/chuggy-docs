@@ -64,11 +64,10 @@ into. The epic must exist and be Active: a missing epic is refused `MissingEpic`
 an Archived one `ArchivedEpic`, and one that would grow past its bound
 `LargeContent`, and in each case no draft is filed.
 
-A draft is a member from the moment it is filed, though the ticket does not
-exist for the project until it is released. Until then a write to the epic is
-refused (`UnknownTickets`, naming the draft), because every write names all of
-the epic's members and a draft is not yet one the project holds. Once the
-draft is released the epic can be changed again.
+A draft is a member from the moment it is filed, as a released ticket is, and
+stays one when it is released or revised. Deleting the draft takes it out of
+every epic that held it; each of those epics takes a new revision, made by
+whoever deleted the draft.
 
 ## In the console
 

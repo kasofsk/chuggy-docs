@@ -69,8 +69,8 @@ epics, as `writeEpic`. `create_draft` takes an `epic` to file the draft into,
 and `list_tickets` takes one to list only that epic's tickets; a ticket read
 carries the `epics` it is in. A refused epic write comes back as the API
 refused it, its status and body unaltered: `StaleRevision` names the revision
-the epic is at now, and `UnknownTickets` the tickets the project does not hold,
-a draft not yet released among them.
+the epic is at now, and `UnknownTickets` the numbers that are neither a ticket nor a draft
+of the project.
 `create_draft`, `revise_draft` and `file_dependent` also take `overrides`:
 what the ticket replaces of its configuration, each field replacing that
 field's whole rather than merging into it. On a catalog it is `workloads`,
