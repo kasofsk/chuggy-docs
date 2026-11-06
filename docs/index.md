@@ -39,6 +39,9 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
 - **Runner.** A machine registered to run a project's jobs: a shared pool, or
   one member's own. [Runners](runners.md) covers the three packages and how
   work is placed.
+- **Epic.** A named set of tickets worked toward one end, with the progress
+  of its members worked out from their phases. [Epics](epics.md) covers what
+  one holds and how a ticket is filed into it.
 - **Thread.** A chat with an agent that acts on your behalf in a project: it
   reads the project, drafts tickets, and releases them on your word.
 - **Lead.** A project's own agent that watches the whole graph rather than one
