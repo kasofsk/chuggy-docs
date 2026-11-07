@@ -135,7 +135,9 @@ a ticket in this order:
 4. `create_draft` with the revision as `configurationRevision`, the fence as
    `configurationDigest` and `expectedProjectSequence`, the brief, and
    `authoring` set to `defaults`, with any tickets it waits on added to
-   `authoring.dependencies`. It answers the draft and its ticket number.
+   `authoring.dependencies`. It answers the draft and its ticket number. Give
+   it an `epic` to file the draft into one of the project's [epics](epics.md)
+   in the same write.
 5. `read_draft`. The draft as stored, with its `authoringVersion`.
 6. `release_draft` with the ticket, its `authoringVersion` and its
    `configurationRevision`. It submits the release and answers the

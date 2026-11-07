@@ -29,6 +29,8 @@ readable only by you, one per site.
 ## The tools
 
 They are the tools a session in chuggy has, for one project, in three groups.
+Epics, the named sets of tickets [Epics](epics.md) describes, are read and
+written by the first two.
 
 **Reading the project.** `list_tickets`, `read_ticket`, `list_drafts`,
 `read_draft`, `list_configurations`, `read_configuration`,
@@ -36,8 +38,9 @@ They are the tools a session in chuggy has, for one project, in three groups.
 `read_run_transcript`, `read_run_error`, `read_ticket_landings`,
 `read_ticket_refusals`, `read_refusals`, `read_decision_log`, `read_lead`,
 `read_lead_transcript`, `read_operation`, `list_threads`, `read_thread`,
-`read_thread_transcript`, `fetch_image` and `read_docs`. Everything the console
-shows, one page at a time, each answer naming its cursor; and these docs,
+`read_thread_transcript`, `fetch_image`, `read_docs`, `read_abilities`,
+`list_epics`, `read_epic`, `read_epic_history` and `read_epic_graph`.
+Everything the console shows, one page at a time, each answer naming its cursor; and these docs,
 `read_docs` answering their index with no argument and one page by the address
 the index lists it at.
 
@@ -57,6 +60,17 @@ waits on another; `initialize_draft` and `revise_draft` shape a draft;
 `release_draft` releases it; `delete_draft` discards it; `update_ticket`
 revises a released ticket that has not started; `revoke_ticket` ends one;
 `dispatch_ticket` starts a released ticket now, where you may dispatch.
+`create_epic` makes an epic and `revise_epic` rewrites one whole against the
+`revision` `read_epic` answered; `add_epic_tickets` and `remove_epic_tickets`
+change only an epic's members, reading it and revising it in one call, doing
+nothing where the tickets are already in or already out, and trying once more
+if the epic moved in between. `read_abilities` says whether you may write
+epics, as `writeEpic`. `create_draft` takes an `epic` to file the draft into,
+and `list_tickets` takes one to list only that epic's tickets; a ticket read
+carries the `epics` it is in. A refused epic write comes back as the API
+refused it, its status and body unaltered: `StaleRevision` names the revision
+the epic is at now, and `UnknownTickets` the numbers that are neither a ticket nor a draft
+of the project.
 `create_draft`, `revise_draft` and `file_dependent` also take `overrides`:
 what the ticket replaces of its configuration, each field replacing that
 field's whole rather than merging into it. On a catalog it is `workloads`,
