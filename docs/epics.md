@@ -36,9 +36,10 @@ nothing records them.
 
 - **Progress** counts the members in each phase, how many are Done, and how
   many there are in all. A Revoked member is left out of the total.
-- **Status** is the first of these that holds: `empty` (no members), `done`
-  (every member that is not Revoked is Done), `attention` (a member is
-  Escalated), `not_started` (every member is Pending or a draft), `in_progress`.
+- **Status** is the first of these that holds: `empty` (no member that is not
+  Revoked), `done` (every member that is not Revoked is Done), `attention` (a
+  member is Escalated), `not_started` (every member that is not Revoked is
+  Pending or a draft), `in_progress`.
 - **Waiting on outside** lists the tickets outside the epic that a Pending
   member depends on and that are not yet Done, which is what keeps the epic
   from starting.
