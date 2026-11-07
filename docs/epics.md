@@ -20,12 +20,14 @@ project's ticket list.
 - **Summary.** Optional, a sentence the epic is listed with.
 - **Description.** What the epic is for and what finishes it, as Markdown.
 - **Visibility.** Active, or Archived. An Archived epic is kept and read like
-  any other, and its tickets no longer change: nothing joins it or leaves it
-  until it is Active again.
+  any other, and a write to it is refused if it would change its tickets,
+  until it is Active again; deleting a draft that is its member still takes
+  it out.
 - **Tickets.** The members.
 
-An epic's size is bounded as a whole. A write that would make it larger is
-refused as `LargeContent`.
+An epic's size is bounded as a whole: a write that would give it too many
+tickets is refused as `ManyTickets`, and one whose content would weigh too
+much as `LargeContent`.
 
 ## How far along it is
 
@@ -36,7 +38,7 @@ nothing records them.
   many there are in all. A Revoked member is left out of the total.
 - **Status** is the first of these that holds: `empty` (no members), `done`
   (every member that is not Revoked is Done), `attention` (a member is
-  Escalated), `not_started` (every member is Pending), `in_progress`.
+  Escalated), `not_started` (every member is Pending or a draft), `in_progress`.
 - **Waiting on outside** lists the tickets outside the epic that a Pending
   member depends on and that are not yet Done, which is what keeps the epic
   from starting.
@@ -62,7 +64,7 @@ A new draft can join an epic as it is filed. The draft and its place in the
 epic are written together, so a draft is never left out of an epic it was filed
 into. The epic must exist and be Active: a missing epic is refused `MissingEpic`,
 an Archived one `ArchivedEpic`, and one that would grow past its bound
-`LargeContent`, and in each case no draft is filed.
+`ManyTickets` or `LargeContent`, and in each case no draft is filed.
 
 A draft is a member from the moment it is filed, as a released ticket is, and
 stays one when it is released or revised. Deleting the draft takes it out of
