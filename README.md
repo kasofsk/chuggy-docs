@@ -1,7 +1,7 @@
 # chuggy docs
 
 How to use [chuggy](https://chug.gy): the words, the first steps, a ticket's
-phases and brief, the epics that group tickets, the runners that do the work, the tools a coding agent gets,
+phases and brief, the epics that group tickets, the lead's prompt, the runners that do the work, the tools a coding agent gets,
 the configuration a repository carries, and what a job runs in. Rendered at
 <https://chug.gy/docs>; `llms.txt` is the same list for a language model.
 
@@ -9,6 +9,7 @@ the configuration a repository carries, and what a job runs in. Rendered at
 - [Getting started](docs/getting-started.md)
 - [A ticket](docs/tickets.md)
 - [Epics](docs/epics.md)
+- [Writing a project's lead prompt](docs/lead-prompt.md)
 - [Runners](docs/runners.md)
 - [Tools for your coding agent](docs/tools.md)
 - [Configuration](docs/configuration.md)
