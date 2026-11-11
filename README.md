@@ -10,6 +10,7 @@ the configuration a repository carries, and what a job runs in. Rendered at
 - [A ticket](docs/tickets.md)
 - [Epics](docs/epics.md)
 - [Writing a project's lead prompt](docs/lead-prompt.md)
+- [The subsidized lead](docs/subsidized-lead.md)
 - [Runners](docs/runners.md)
 - [Tools for your coding agent](docs/tools.md)
 - [Configuration](docs/configuration.md)
