@@ -58,8 +58,8 @@ standing attention and the dispatch budget.
 **Write for the smallest model the project may run as its lead, and for a
 lead that applies what it is told.** A phrase a large model reads past, a
 smaller one applies to every candidate on every turn. Write each sentence so
-it is still right applied that way. The [subsidized
-lead](subsidized-lead.md) is one such model.
+it is still right applied that way. On the [subsidized
+lead](subsidized-lead.md), the installation chooses the model.
 
 **Don't restate what the selector settles.** A candidate is already released,
 Pending, and has every dependency Done, and whoever released it settled its

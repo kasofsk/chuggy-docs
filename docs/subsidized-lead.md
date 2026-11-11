@@ -26,9 +26,9 @@ back, choose Lead, Runners.
 
 The installation names the subsidized lead's model, effort, compaction window
 and how much input it is given per decision. In the console's lead settings the
-model and effort read Pinned, set by chuggy for its subsidized lead, and the
-allowance is shown beside them. Read the model and the allowance there; an installation sets both, so
-they are not the same everywhere.
+model and effort read Pinned, and the allowance below them reads as set by
+chuggy for its subsidized lead. Read the model and the allowance there; an
+installation sets both, so they are not the same everywhere.
 
 ## The allowance
 
@@ -44,11 +44,9 @@ across all its workspaces too. A month is the calendar month in UTC.
 
 When either is spent:
 
-- **Decisions.** The selector does not give the lead a turn. The Lead page and
-  the lead settings read Month's allowance spent, and say it resumes next month
-  or on Runners.
-- **Questions.** Asking the lead is refused, saying the lead's subsidy for this
-  month is spent.
+- **Decisions.** The selector does not give the lead a turn. The Lead page
+  reads Month's allowance spent, and says it resumes next month or on Runners.
+- **Questions.** Asking the lead is refused until the month turns.
 
 You can wait for the month to turn, or move the lead back to Runners as above.
 
