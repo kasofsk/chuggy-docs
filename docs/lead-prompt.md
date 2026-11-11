@@ -13,10 +13,13 @@ observation. You write the first two. This page is about writing them well.
 ## Where it is set
 
 Members with access to manage the project's lead settings write both texts in
-the console's lead settings, under Base prompt and North Star, or through the
-project's `selector-settings` API route as `basePrompt` and `northStar`. A
-write replaces the whole set of settings under the revision it was read at, so
-leaving a field out clears it.
+the console's lead settings, under Base prompt and North Star; through the
+project's `selector-settings` API route as `basePrompt` and `northStar`; or by
+asking their own coding agent, whose `update_lead_settings` writes them (see
+[Tools for your coding agent](tools.md)). A write to the route replaces the
+whole set of settings under the revision it was read at, so leaving a field
+out clears it. The tool reads the settings first and keeps every field it is
+not told to change.
 
 - A project that sets no prompt gets the installation's default. An
   installation that has not changed its default has one written for a lead

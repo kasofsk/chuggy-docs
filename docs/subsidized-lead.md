@@ -22,6 +22,10 @@ A subsidized lead runs in chuggy's cluster and never on the project's runners.
 Nothing else moves: work, evaluation and chat keep their own placement. To go
 back, choose Lead, Runners.
 
+Your own coding agent can do the same with `update_placement` (see [Tools for
+your coding agent](tools.md)): `lead` `InCluster` with `leadOffering`
+`Subsidized` turns it on, and `lead` `Pool` goes back.
+
 ## What chuggy fixes
 
 The installation names the subsidized lead's model, effort, compaction window
@@ -62,4 +66,6 @@ chuggy tools.
 So it can read the repository, but it is not instructed by it. The project's
 lead prompt and North Star are the only project text it is given as
 instruction. Everything a `CLAUDE.md` would have told a lead on runners belongs
-in that prompt: see [Writing a project's lead prompt](lead-prompt.md).
+in that prompt: see [Writing a project's lead prompt](lead-prompt.md). Your
+coding agent can read the repository's `CLAUDE.md` and write that prompt with
+`update_lead_settings`.
