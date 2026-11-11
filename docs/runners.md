@@ -33,6 +33,27 @@ the member's work: their own runners take it and no shared runner does while
 one of theirs serves the project, or a shared runner takes it while none of
 theirs is online.
 
+## How a runner chooses its next job
+
+Of the jobs a runner may take, it takes a started ticket's next step before
+it starts a new ticket. A ticket is started once a runner has taken work of
+it: a retry, a review, a check or a rework. After that the oldest ticket
+goes first. A job too large for the room a runner has left waits, and a
+smaller one may go first.
+
+On your own runners each project you serve has a priority, High, Normal or
+Low, which you set per project on your runners page. Among started work, and
+again among new tickets, a higher-priority project's job goes first, ahead
+of the age of its ticket. A Low project starts a ticket only when nothing
+above it could start one. Priority only orders what starts: started work
+never waits behind it. A shared pool has no priorities; it takes started
+tickets first, then the oldest.
+
+Your runners page shows what each of your runners is running: the project
+and ticket, whether it is work or an evaluation, and its cycle, or Idle where
+it holds nothing. Beside each project's priority it shows how many jobs wait
+in that project, as 99+ past that count.
+
 ## Registering
 
 The project's Runners page mints a registration token and hands it over in
