@@ -56,7 +56,8 @@ standing attention and the dispatch budget.
 ## Practices
 
 **Write for the smallest model the project may run as its lead, and for a
-lead that applies what it is told.** A phrase a large model reads past, a
+lead that applies what it is told.** A [subsidized lead](subsidized-lead.md)
+loads no `CLAUDE.md`, so this prompt is all the instruction it has. A phrase a large model reads past, a
 smaller one applies to every candidate on every turn. Write each sentence so
 it is still right applied that way.
 

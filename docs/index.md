@@ -48,7 +48,9 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
   ticket. It proposes what to run next, holds a ticket that would conflict
   with work in flight and says why, and answers members' questions. Its
   decisions are in a log; the ones it holds for a person are in the inbox.
-  [Writing a project's lead prompt](lead-prompt.md) covers what to tell it.
+  [Writing a project's lead prompt](lead-prompt.md) covers what to tell it;
+  [The subsidized lead](subsidized-lead.md) covers running it on chuggy's own
+  hardware.
 
 ## Where to start
 
