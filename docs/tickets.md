@@ -23,11 +23,16 @@ below until it is Done or Revoked.
 - **Work.** An agent makes the change on a runner, on the brief's branch.
 - **Evaluation.** The stages of the configuration's plan run in order, such
   as checks and then a reviewing agent. A stage that fails sends the work back
-  to Work with the reason.
+  to Work with the reason. Where a landing re-checks a ticket, an evaluator
+  that names `reevaluate: OnChange` may be reused rather than run again; see
+  [Reusing an evaluator](configuration.md#reusing-an-evaluator).
 - **Finalization.** The passed change lands by a push, a pull request, or a
   pull request that is then merged, after a person's approval where the
   configuration asks for one. A landing that conflicts with its target sends
-  the work back to Work with the conflict.
+  the work back to Work with the conflict. Where the Serialized or Stacked
+  policy lands a ticket whose target moved while it waited, its work is
+  merged onto the new tip and evaluated again; an `OnChange` evaluator whose
+  pass still stands is carried forward and not run again.
 - **Done.** The landing succeeded. Under a **Pull request** landing, its pull
   request is open for a person to merge.
 - **Escalated.** Parked for a person: its run stopped at a step such as its
