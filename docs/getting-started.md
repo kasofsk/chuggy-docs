@@ -76,7 +76,9 @@ and shows a brief.
 
 The ticket's page shows each stage as it runs, with the agent's transcript,
 every check's output, the reviewer's verdict, the cost, and the commit or
-pull request it became. The inbox lists every ticket that needs a person:
+pull request it became. A run reused from an earlier work cycle shows as
+reused, with its carried report and a link to that cycle's run
+([Reusing an evaluator](configuration.md#reusing-an-evaluator)). The inbox lists every ticket that needs a person:
 a parked ticket, an approval the configuration requires, or a decision the
 lead has held for review.
 

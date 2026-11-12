@@ -115,6 +115,57 @@ of that newest import: a later one can turn a `Held` ticket `Current` or move
 it, or the other way around. No import changes `Trimmed`, which is decided
 from the revision the ticket holds.
 
+## Reusing an evaluator
+
+A workload run as an evaluator may name `reevaluate`, which holds `Always` or
+`OnChange`; a workload that names none is `Always`. It matters only for a
+workload run as an evaluator, and a version 1 configuration, which has no
+workloads, has no such key.
+
+Evaluation can run more than once on a ticket whose change did not change.
+The common case is a ticket landing by the Serialized or Stacked policy
+whose target branch moved while it waited: its work is merged onto the new
+tip and evaluation runs again on the merge result. An `Always` evaluator runs
+every time. An `OnChange` evaluator that already passed is not run again when
+the ticket's own diff is the same as when it passed; its pass and its report
+are carried forward, and the run shows as reused from the earlier work cycle.
+
+The usual setup is `OnChange` on an agent review, and `Always`, the default,
+on commands such as tests and CI: commands must be run on the tree that will
+land, and a review of an unchanged diff need not be repeated.
+
+```json
+"review": {
+  "runner": "Agent",
+  "purpose": "Review",
+  "reevaluate": "OnChange",
+  "prompt": {
+    "path": ".chug/prompts/review.md"
+  }
+}
+```
+
+The fragment leaves out the `worker` and the rest a whole workload has.
+
+A pass is carried only where all of these hold:
+
+- The same evaluator of the same ticket passed on an earlier work cycle.
+- The workload is unchanged, the ticket's overrides included: changing its
+  prompt, model or any other field makes it run again.
+- The ticket's own diff against its target is unchanged. A clean merge of a
+  moved target keeps it. Resolving a merge conflict, or any edit made after
+  another evaluator sent the ticket back to Work, changes it, and the
+  evaluator runs again.
+- For a Stacked ticket, a pass earned while stacked on other tickets is
+  carried only if all of those landed as they were; if one was ejected or
+  reworked, the evaluator runs again.
+
+Before choosing `OnChange`, know what it gives up. A carried review did not
+see the commits the target gained, so anything that must hold on the landed
+tree belongs in an `Always` evaluator. The comparison is also conservative: a
+clean merge that changes lines right beside the ticket's own can make the
+review run again.
+
 ## What length costs
 
 A job reads only the prompt of its own workload, and reads it on every turn
