@@ -63,13 +63,10 @@ shows the steps that spend it: install the package, then
 chuggy-linux register --api <site> --token=<token>
 ```
 
-with `--personal`, which Personal runners adds for your own runner, `--host` for a machine that runs
+with `--personal` for your own runner, `--host` for a machine that runs
 image-less work on itself, and `--capability` for anything else the machine
 meets, such as a tool a configuration may ask for. The token is spent once.
 Registering again from a machine replaces its registration.
-
-A project's shared pools are listed under its Settings → Pools; the console
-registers none, and the setup program can register a Linux machine as one.
 
 ## Credentials
 
