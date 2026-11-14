@@ -66,9 +66,9 @@ chuggy-linux register --api <site> --token=<token>
 with `--personal` for your own runner, `--host` for a machine that runs
 image-less work on itself, and `--capability` for anything else the machine
 meets, such as a tool a configuration may ask for. The token is spent once;
-registering again replaces its registration. Settings → Pools lists a
-project's pools; the console registers none. On Linux the setup program can
-register its machine as one; on a Mac it sends you to Personal runners.
+registering again replaces it. Settings → Pools lists a project's pools; the
+console registers none. The Linux setup program can register its machine as
+one, and on a Mac sends you to Personal runners.
 
 ## Credentials
 
