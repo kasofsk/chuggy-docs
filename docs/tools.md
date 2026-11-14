@@ -108,6 +108,8 @@ chuggy-linux 0.48.0 and chuggy-darwin 0.18.0.
 not served here. A coding agent with these tools acts as you in the project: it
 dispatches only what you may, and it never acts as the project's lead.
 
+The chuggy tools do not change the machine they run on. To make this computer your chat host, the agent runs the setup program's `chat-host`; [A chat host](runners.md#a-chat-host) says how.
+
 ## What to ask it
 
 With the server added, the agent can answer questions such as what is in

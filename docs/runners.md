@@ -33,6 +33,32 @@ the member's work: their own runners take it and no shared runner does while
 one of theirs serves the project, or a shared runner takes it while none of
 theirs is online.
 
+## A chat host
+
+A chat host is the one machine of yours, in a workspace, that your threads and
+questions run on, under your own Claude credential. It takes no jobs. A
+workspace administrator grants a member the right to register one.
+
+To register one from the console, open the personal-runners page in your
+settings and press Register chat host, choose the machine, Linux or Mac, and
+run the commands it shows on that machine.
+
+On Linux your coding agent can do it for you: paste the Claude Code line the
+same page shows into Claude Code on that machine, or have it run the setup
+program's
+
+```sh
+chat-host --site <origin> --workspace <workspace>
+```
+
+To move your chat host from another machine, run it on the new one with
+`--replace <short id>`, the short id your personal-runners page shows for the
+host. That ends the old host's sessions.
+
+[chuggy-linux](https://github.com/kasofsk/chuggy-linux#a-chat-host) and
+[chuggy-darwin](https://github.com/kasofsk/chuggy-darwin#chat-host) cover the
+rest: its settings, its credential and its container.
+
 ## How a runner chooses its next job
 
 Of the jobs a runner may take, it takes a started ticket's next step before
