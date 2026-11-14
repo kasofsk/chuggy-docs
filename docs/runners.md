@@ -56,8 +56,8 @@ in that project, as 99+ past that count.
 
 ## Registering
 
-Register runner on Settings → Personal runners mints a registration token and
-shows the steps that spend it: install the package, then
+Register runner on Settings → Personal runners mints a registration token for
+your own runner and shows the steps that spend it: install the package, then
 
 ```sh
 chuggy-linux register --api <site> --token=<token>
@@ -67,6 +67,9 @@ with `--personal` for your own runner, `--host` for a machine that runs
 image-less work on itself, and `--capability` for anything else the machine
 meets, such as a tool a configuration may ask for. The token is spent once.
 Registering again from a machine replaces its registration.
+The console registers no shared pool; Settings → Pools lists a project's. On
+Linux, the setup program can register the machine it runs on as one of the
+project's pools; on a Mac it sends you to Personal runners.
 
 ## Credentials
 

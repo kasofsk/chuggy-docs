@@ -46,9 +46,9 @@ from the repository and asks for the rest.
 Work runs on machines you register, not on chuggy's. Register runner on
 Settings → Personal runners mints a registration token for your own runner
 and shows the two commands that spend it: install the runner package, then
-register. A project's pools are listed under Settings → Pools. A runner needs
-a model credential on the machine, such as a Claude subscription token or an
-API key, which stays there. [Runners](runners.md) has the detail.
+register. A project's pools are listed under Settings → Pools; the console
+registers none. A runner needs a model credential on the machine, such as a
+Claude subscription token or an API key, which stays there. [Runners](runners.md) has the detail.
 
 ## A ticket
 
