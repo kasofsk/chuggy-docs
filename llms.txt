@@ -12,7 +12,7 @@
 - [The subsidized lead](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/subsidized-lead.md): running a project's lead on chuggy's own hardware free up to a monthly allowance; Settings, Placement, Lead; what chuggy fixes, what counts against the allowance, what happens when it is spent, and that it loads no CLAUDE.md or repository settings.
 - [Runners](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/runners.md): chuggy-linux, chuggy-darwin and chuggy-windows; shared pools and a member's own runner, how a runner chooses its next job and a project's priority; registering with a token; credentials stay on the machine; turning on `reportMetrics` to see a runner in Grafana.
 - [Tools for your coding agent](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/tools.md): `chuggy-linux mcp` serves the chuggy tools to Claude Code under your own sign-in; the reading tools, the authoring tools, the epic tools, the lead-settings and placement tools only your own agent has, and that the lead's decision tools are not among them.
-- [Configuration](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/configuration.md): the file under `.chug/configurations/`: image, workloads, plans, finalizers and defaults; landings and approval; the published JSON Schema.
+- [Configuration](https://raw.githubusercontent.com/kasofsk/chuggy-docs/main/docs/configuration.md): the file under `.chug/configurations/`: image, workloads, plans, finalizers and defaults; landings, and a person's approval as an evaluator; the published JSON Schema.
 
 ## Jobs
 
