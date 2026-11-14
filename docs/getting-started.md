@@ -43,10 +43,12 @@ from the repository and asks for the rest.
 
 ## A runner
 
-Work runs on machines you register, not on chuggy's. The project's Runners
-page mints a registration token and shows the two commands that spend it:
-install the runner package for the machine's platform, then register. The
-same page does this for a shared pool and for your own runner. A runner needs
+Work runs on machines you register, not on chuggy's. Settings → Personal
+runners, which the gear menu's Runners opens, has Register runner, which
+mints a registration token for your own runner and shows the two commands
+that spend it: install the runner package for the machine's platform, then
+register. A project's shared pools are listed under its Settings → Pools; the
+setup program can register a Linux machine as one. A runner needs
 a model credential on the machine, such as a Claude subscription token or an
 API key, which stays there. [Runners](runners.md) has the detail.
 
