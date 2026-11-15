@@ -76,6 +76,56 @@ a login for Codex. The runner's own configuration names the files. A
 credential reaches a job through a file mounted read-only, and every secret
 in it is scrubbed from what the job reports. Nothing of it is sent to chuggy.
 
+### Several credentials for one agent
+
+A runner's configuration may name a set of credentials for one agent, each
+with a `name`: for Claude, subscription tokens or API keys, and for Codex,
+logins or API keys. Each type has an `order`, and a `prefer` policy chooses
+between the types:
+
+```json
+"claudeCredential": { "prefer": "PreferOAuth", "oauth": { "order": "InOrder", "credentials": [ … ] }, "apiKey": { … } }
+```
+
+The [chuggy-linux](https://github.com/kasofsk/chuggy-linux#configure) and
+[chuggy-darwin](https://github.com/kasofsk/chuggy-darwin#readme) READMEs give
+the full form and an example.
+
+**Who chooses, and when.** Each service chooses for itself: a personal
+runner, a pool's service, a chat host. Nothing is shared between services or
+machines. A credential is chosen for each job and for each chat session.
+`InOrder` takes the first one that is free; `RoundRobin` takes the one after
+the last one chosen. A running job keeps its credential to the end.
+
+**Paused.** A credential at your usage threshold (Settings → Usage) is passed
+over from that service's next job on. A runner waits only while every
+credential it holds for the agent is paused. Your account reads paused for an
+agent only while every credential your online runners hold for it is paused.
+
+**Limited.** A credential the provider limits sits out on that service until
+the reset the limit names; one out of credits sits out until the service
+restarts. The run that hit the limit ends, and its ticket resumes once a
+runner of yours holds a free credential. Where every credential is sitting
+out, the one back soonest is used.
+
+**Names.** chuggy keeps usage by name, under the account of the member whose
+runner it is. Give a credential the same name on every machine: the same name
+on two machines is one credential, and two names for one credential are
+counted as two.
+
+**Seeing them.** Settings → Usage lists each credential's readings and any
+pause on it. Retire forgets a credential's readings and limit. It is refused
+while a runner that is online still names that credential, so take the
+credential out of the runner's configuration first; a run on it later brings
+it back. A secret never reaches chuggy, so adding a credential means editing
+the configuration on each machine that should hold it.
+
+**Versions.** A set needs chuggy-linux later than 0.47.0. chuggy pauses one
+credential at a time only for a runner that tells it which credentials it
+holds: chuggy-linux 0.51.0 and chuggy-darwin 0.21.0 or later. A runner that
+doesn't, whether an earlier release or any build that doesn't report them, is
+held whenever your account reads paused for the agent.
+
 ## What a runner does with a job
 
 It takes an assignment only if the machine has the CPU and memory the job
