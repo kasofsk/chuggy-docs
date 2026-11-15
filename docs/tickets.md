@@ -28,6 +28,9 @@ below until it is Done or Revoked.
   pull request that is then merged, after a person's approval where the
   configuration asks for one. A landing that conflicts with its target sends
   the work back to Work with the conflict.
+  A job merges the branch its ticket lands on into its work before its agent
+  starts and again before it pushes; for a pull request, that branch is its
+  base. The agent is asked only where a merge conflicts.
 - **Done.** The landing succeeded. Under a **Pull request** landing, its pull
   request is open for a person to merge.
 - **Escalated.** Parked for a person: its run stopped at a step such as its
