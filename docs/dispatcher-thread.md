@@ -12,15 +12,21 @@ of the project's lead. The thread runs on the member's
 the script logs something that needs judgement. This page is what a thread
 reads, through `read_docs`, when its owner asks it to dispatch.
 
-The script below has not been run against chuggy. Before relying on it, run
-it once with `--once` and compare what it logs with what `chuggy list_tickets`
-prints.
+The script below has not been run against chuggy. Its tool names, its
+arguments, `tickets` and `nextAfter` in a page of `list_tickets`, the phase
+names (including `Escalated`) and `authoring.dependencies` of `read_ticket`
+come from the descriptions of chuggy-common's tools. The keys naming a ticket
+within a listed entry, and the key naming a ticket's phase in `read_ticket`,
+were not read, so the script tries `ticket`, then `number`, and `phase`.
+Before relying on it, run it once with `--once` and compare what it logs with
+what `chuggy list_tickets` prints.
 
 ## What it needs
 
 - A thread on the member's chat host. The host's `chat.sessionCapabilities`
   names the capabilities its threads may hold: at least `ProjectRead` and
-  `TicketDispatch`, and a shell for the thread, such as `RunCommands`. Naming
+  `TicketDispatch`, plus what gives the thread a shell (chuggy-linux's README
+  gives `RunCommands` as an example). Naming
   it is also what hands the thread's shell the credential `chuggy` uses.
   Unset, a thread holds its whole roster and its shell gets no credential, so
   the script could not call chuggy.
@@ -29,8 +35,7 @@ prints.
 
 [chuggy-linux](https://github.com/kasofsk/chuggy-linux#a-chat-host) and
 [chuggy-darwin](https://github.com/kasofsk/chuggy-darwin) say how to set
-them; a thread needs a host on chuggy-linux 0.53.0 or chuggy-darwin 0.23.0 or
-later.
+them. chuggy-linux's README says both settings need 0.53.0 or later.
 
 ## The queue
 
@@ -82,11 +87,15 @@ import { promisify } from "node:util";
 
 const run = promisify(execFile);
 const queuePath = "queue.json";
-const statePath = "dispatcher-state.json";
 const MARK = "NEEDS-JUDGEMENT";
+const flagged = new Set();
 
 const log = (line) => console.log(`${new Date().toISOString()} ${line}`);
-const flag = (line) => log(`${MARK} ${line}`);
+const flag = (line) => {
+  if (flagged.has(line)) return;
+  flagged.add(line);
+  log(`${MARK} ${line}`);
+};
 const sleep = (ms) => new Promise((done) => setTimeout(done, ms));
 
 async function readJson(path, fallback) {
@@ -146,13 +155,6 @@ async function epicMembers(epic) {
   return (body.tickets ?? body.members ?? []).map(numberOf);
 }
 
-/** Change the queue as it is now, so a change the thread just made is kept. */
-async function changeQueue(change) {
-  const queue = await readJson(queuePath);
-  change(queue);
-  await writeJson(queuePath, queue);
-}
-
 async function pass() {
   const queue = await readJson(queuePath);
   const ignore = new Set((queue.ignore ?? []).map(Number));
@@ -161,22 +163,10 @@ async function pass() {
     ...Object.keys(queue.deferred ?? {}),
   ].map(Number));
 
-  const state = await readJson(statePath, { escalated: {} });
   const escalated = (await ticketsIn(["Escalated"]))
     .map(numberOf)
     .filter((number) => !ignore.has(number));
-  for (const number of escalated) {
-    const seen = state.escalated[number] ?? { count: 0, now: false };
-    if (!seen.now) {
-      seen.count += 1;
-      seen.now = true;
-      flag(`ticket ${number} escalated (time ${seen.count})`);
-    }
-    state.escalated[number] = seen;
-  }
-  for (const [number, seen] of Object.entries(state.escalated))
-    if (!escalated.includes(Number(number))) seen.now = false;
-  await writeJson(statePath, state);
+  for (const number of escalated) flag(`ticket ${number} escalated`);
 
   if (typeof queue.paused === "string") {
     log(`paused: ${queue.paused}`);
@@ -221,11 +211,7 @@ async function pass() {
       log(`dispatched ticket ${number}: ${status}`);
       dispatched += 1;
     } catch (failure) {
-      const reason = `dispatch failed: ${failure.message}`.slice(0, 300);
-      await changeQueue((current) => {
-        current.deferred = { ...current.deferred, [number]: reason };
-      });
-      flag(`ticket ${number} deferred, ${reason}`);
+      flag(`dispatch of ticket ${number} failed: ${failure.message}`.slice(0, 300));
     }
   }
 }
@@ -247,10 +233,10 @@ for (;;) {
 }
 ```
 
-A failed call is logged once while it keeps failing the same way, so a stuck
-pass does not wake the thread every interval. A ticket whose dispatch is
-refused is added to `deferred` with the refusal, so it is not tried again
-until the thread releases it.
+Each marked line is logged once per run of the script, so a failure that
+repeats does not wake the thread every interval. A restart of the job logs it
+again. The script writes nothing but its log: it never changes `queue.json`.
+To keep a ticket from being tried again, the thread adds it to `deferred`.
 
 ## Running it
 
@@ -277,7 +263,9 @@ nothing while it polls.
 - **On a wake saying a new attempt restored the jobs**, run `job_list` and
   read the log's end: a pass the restart interrupted runs again from its
   start, and a ticket it was dispatching may or may not have been. Check it
-  with `chuggy read_ticket` before dispatching it again.
+  with `chuggy read_ticket` before dispatching it again. `chuggy` treats
+  each submitted command as an operation of its own, so a dispatch run again
+  is a second submission, not a repeat of the first.
 
 If the job itself exits, the thread is woken for it. Read its log for the
 cause.
@@ -289,8 +277,9 @@ cause.
 - Never work around a fault of chuggy's or the runner's inside a project's
   tickets. Do not file, edit or reorder tickets to get around one; report it.
 - Tell the owner rather than dispatch again what escalated twice. The script
-  counts each ticket's escalations in `dispatcher-state.json`; the second
-  marker for a ticket is the signal to stop and ask.
+  keeps no count: count a ticket's `escalated` lines in the log (each is
+  logged once per run of the script, so a restart may repeat one), and
+  once it has escalated twice, stop and ask.
 
 ## What survives what
 
@@ -298,7 +287,9 @@ cause.
   runner's restarts, updates and drains. The thread is placed again without a
   message, and its next attempt starts the job again.
 - A pass interrupted mid-run runs again. A dispatch the interrupted pass
-  already submitted is refused the second time, since only a Pending ticket
-  can be dispatched.
+  already submitted may be submitted again if the ticket still reads Pending,
+  because `chuggy` treats each submitted command as an operation of its own.
+  The pass reads each ticket's phase before it dispatches, which narrows that
+  but does not close it.
 - Closing the thread removes its workspace, and with it `queue.json` and the
   script. Keep what the owner needs in the project's tickets.
