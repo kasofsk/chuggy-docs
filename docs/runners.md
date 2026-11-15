@@ -19,6 +19,9 @@ image. There is one package per platform:
 Each needs Node 24 or later. Each README covers installing, configuring, and
 the credentials a runner reads.
 
+A member's chat host can run a thread that dispatches a project's tickets; see
+[Running a ticket dispatcher from a thread](dispatcher-thread.md).
+
 ## Shared pools and your own runner
 
 A **pool** is a project's shared machine. Any ticket in the project may run on
