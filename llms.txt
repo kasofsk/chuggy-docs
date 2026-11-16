@@ -35,3 +35,7 @@
 - [chuggy-darwin README](https://github.com/kasofsk/chuggy-darwin): installing, registering and configuring a Mac runner, which runs jobs in Colima's Linux VM.
 - [chuggy-windows README](https://github.com/kasofsk/chuggy-windows): installing, registering and configuring a Windows runner, which runs jobs in Docker Desktop's Linux containers.
 - [Configuration JSON Schema](https://chuggy.vteng.io/api/v1/configuration-schema): every key a configuration file can hold.
+
+## Claude Code plugin
+
+A Claude Code plugin teaches an agent to set chuggy up and to file a ticket: `claude plugin marketplace add https://github.com/kasofsk/chuggy-docs.git --sparse .claude-plugin plugins`, then `claude plugin install chuggy@chuggy`.
