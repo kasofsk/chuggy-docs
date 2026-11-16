@@ -19,6 +19,9 @@ image. There is one package per platform:
 Each needs Node 24 or later. Each README covers installing, configuring, and
 the credentials a runner reads.
 
+A member's chat host can run a thread that dispatches a project's tickets; see
+[Running a ticket dispatcher from a thread](dispatcher-thread.md).
+
 ## Shared pools and your own runner
 
 A **pool** is a project's shared machine. Any ticket in the project may run on
@@ -68,22 +71,22 @@ goes first. A job too large for the room a runner has left waits, and a
 smaller one may go first.
 
 On your own runners each project you serve has a priority, High, Normal or
-Low, which you set per project on your runners page. Among started work, and
+Low, which you set per project on Personal runners. Among started work, and
 again among new tickets, a higher-priority project's job goes first, ahead
 of the age of its ticket. A Low project starts a ticket only when nothing
 above it could start one. Priority only orders what starts: started work
 never waits behind it. A shared pool has no priorities; it takes started
 tickets first, then the oldest.
 
-Your runners page shows what each of your runners is running: the project
+Personal runners shows what each of your runners is running: the project
 and ticket, whether it is work or an evaluation, and its cycle, or Idle where
 it holds nothing. Beside each project's priority it shows how many jobs wait
 in that project, as 99+ past that count.
 
 ## Registering
 
-The project's Runners page mints a registration token and hands it over in
-the steps that spend it: install the package, then
+Register runner on Settings → Personal runners mints a registration token for
+your own runner and shows the steps that spend it: install the package, then
 
 ```sh
 chuggy-linux register --api <site> --token=<token>
@@ -91,8 +94,10 @@ chuggy-linux register --api <site> --token=<token>
 
 with `--personal` for your own runner, `--host` for a machine that runs
 image-less work on itself, and `--capability` for anything else the machine
-meets, such as a tool a configuration may ask for. The token is spent once.
-Registering again from a machine replaces its registration.
+meets, such as a tool a configuration may ask for. The token is spent once;
+registering again replaces it. Settings → Pools lists a project's pools; the
+console registers none. The Linux setup program can register its machine as
+one, and on a Mac sends you to Personal runners.
 
 ## Credentials
 
