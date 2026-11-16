@@ -12,6 +12,7 @@ the configuration a repository carries, and what a job runs in. Rendered at
 - [Writing a project's lead prompt](docs/lead-prompt.md)
 - [The subsidized lead](docs/subsidized-lead.md)
 - [Runners](docs/runners.md)
+- [Running a ticket dispatcher from a thread](docs/dispatcher-thread.md)
 - [Tools for your coding agent](docs/tools.md)
 - [Configuration](docs/configuration.md)
 - [Jobs](docs/jobs/index.md)
@@ -26,3 +27,12 @@ the configuration a repository carries, and what a job runs in. Rendered at
 Each page opens with its title and a one-line description in front matter.
 Links between pages are relative paths to the files, which read the same on
 GitHub and on the site.
+
+## Claude Code plugin
+
+A Claude Code plugin teaches an agent to set chuggy up and to file a ticket:
+
+```sh
+claude plugin marketplace add https://github.com/kasofsk/chuggy-docs.git --sparse .claude-plugin plugins
+claude plugin install chuggy@chuggy
+```
