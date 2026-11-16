@@ -7,24 +7,31 @@ description: Give Claude Code the chuggy tools a thread has, and the lead's sett
 
 A thread in the console is an agent with chuggy's tools. The same tools can be
 served to the coding agent on your own machine, so that it reads the project
-and files tickets into it without leaving your terminal. The Linux runner
-package serves them over MCP:
+and files tickets into it without leaving your terminal. The runner package
+for the machine serves them over MCP: chuggy-linux on Linux, chuggy-darwin on a
+Mac. Install the one for your machine as its README says, in
+[chuggy-linux](https://github.com/kasofsk/chuggy-linux) or
+[chuggy-darwin](https://github.com/kasofsk/chuggy-darwin), then add it to
+Claude Code.
+
+On Linux:
 
 ```sh
-npm i -g https://github.com/kasofsk/chuggy-linux/releases/download/v0.48.0/chuggy-linux-0.48.0.tgz
 claude mcp add chuggy -- chuggy-linux mcp --site <site> --workspace <workspace> --project <project>
 ```
 
-That URL is pinned to a release; see the
-[chuggy-linux README](https://github.com/kasofsk/chuggy-linux) for the
-current one.
+On a Mac:
+
+```sh
+claude mcp add chuggy -- chuggy-darwin mcp --site <site> --workspace <workspace> --project <project>
+```
 
 `mcp` takes no runner registration. The first call with no sign-in answers
 with the site's sign-in address for the agent to hand you; the sign-in
 returns to a page `mcp` holds on this machine, so open it in a browser here.
 After that, calls go through under your own account, and every action is
 recorded as yours. The renewal token is kept in `~/.config/chuggy/sign-ins`,
-readable only by you, one per site.
+readable only by you, one per site, by both packages.
 
 ## The tools
 
