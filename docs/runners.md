@@ -46,9 +46,9 @@ To register one from the console, open the personal-runners page in your
 settings and press Register chat host, choose the machine, Linux or Mac, and
 run the commands it shows on that machine.
 
-On Linux your coding agent can do it for you: paste the Claude Code line the
-same page shows into Claude Code on that machine, or have it run the setup
-program's
+Your coding agent can do it for you, on Linux or a Mac: paste the Claude Code
+line the same page shows into Claude Code on that machine, or have it run the
+setup program's
 
 ```sh
 chat-host --site <origin> --workspace <workspace>
