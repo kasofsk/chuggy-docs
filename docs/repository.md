@@ -32,6 +32,14 @@ turn the setting On, accept the permission, then press **Resume**. Leave it Off
 unless jobs need it, because a workflow runs with the repository's Actions
 secrets.
 
+With it Off, a job does not merge in a change to a workflow file that reached
+the branch its ticket lands on: it works and pushes without it, and the landing
+brings it. A ticket whose failed landing cannot be reworked without that change
+stops before its agent runs and shows **Push failed**, with the reason that the
+merge would change those files, which the job cannot push. What to do is what
+the refused push above says: accept the Workflows permission for both apps
+(step 1), turn the setting On, then press **Resume**.
+
 ## A refused import
 
 An import that [Configuration](configuration.md#importing) refuses keeps
