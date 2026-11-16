@@ -22,9 +22,9 @@ with.
 - While a sign-in page waits, keep re-running the `next:` command in the
   background rather than asking to be told the person is done. Give them the
   sign-in address in full, at once.
-- Offer to draft the North Star, from the repository or from what the person
-  says, and write it with the chuggy MCP's `update_lead_settings`. Show the
-  draft before writing it.
+- The program's north-star step offers the North Star: follow its `rule:`
+  lines, show the draft before running its command, and let the person skip
+  it.
 - Never ask the person to judge a package, a path or a version. Decide from
   the program's output; the person is asked what only they know.
 - At the end, list what changed on the machine: what was installed, what
