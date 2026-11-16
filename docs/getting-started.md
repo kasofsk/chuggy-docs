@@ -43,12 +43,12 @@ from the repository and asks for the rest.
 
 ## A runner
 
-Work runs on machines you register, not on chuggy's. The project's Runners
-page mints a registration token and shows the two commands that spend it:
-install the runner package for the machine's platform, then register. The
-same page does this for a shared pool and for your own runner. A runner needs
-a model credential on the machine, such as a Claude subscription token or an
-API key, which stays there. [Runners](runners.md) has the detail.
+Work runs on machines you register, not on chuggy's. Register runner on
+Settings → Personal runners mints a registration token for your own runner and
+shows the commands that spend it. A project's pools are listed under Settings →
+Pools. A runner needs a model credential on the machine, such as a Claude
+subscription token or an API key, which stays there. [Runners](runners.md) has
+the detail.
 
 ## A ticket
 
@@ -76,9 +76,11 @@ and shows a brief.
 
 The ticket's page shows each stage as it runs, with the agent's transcript,
 every check's output, the reviewer's verdict, the cost, and the commit or
-pull request it became. The inbox lists every ticket that needs a person:
-a parked ticket, an approval the configuration requires, or a decision the
-lead has held for review.
+pull request it became. A run reused from an earlier work cycle shows as
+reused, with its carried report and a link to that cycle's run
+([Reusing an evaluator](configuration.md#reusing-an-evaluator)). The inbox
+lists every ticket that needs a person: a parked ticket, an approval the
+configuration requires, or a decision the lead has held for review.
 
 ## From your terminal
 

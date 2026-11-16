@@ -19,14 +19,13 @@ A version 2 configuration is a catalog:
 - **workloads.** Named units of work. The work stage is one; each check and
   each reviewing agent is one. A workload names an image, or the
   capabilities a runner must meet instead, and what it runs: an agent with
-  its instructions, or a list of commands. A workload may be written inline
+  its instructions, a list of commands, or a person's approval. A workload may be written inline
   or as the path of a JSON file under `.chug/`.
 - **plans.** How a change is evaluated: stages run in order, each naming the
   workloads that evaluate it. A stage that fails ends the evaluation and sends
   the work back with the reason.
 - **finalizers.** How a passed change lands: a push to a branch, a pull
-  request, or a pull request that is then merged. A finalizer may require a
-  person's approval before it lands; absent, none is asked.
+  request, or a pull request that is then merged.
 - **defaults.** Which workload does the work, which plan evaluates it, and
   which finalizer lands it, for a ticket that selects none.
 
@@ -37,6 +36,48 @@ A key at any depth may not contain `password`, `secret`, `token` or
 `credential`, in any letter case: a configuration is public to the project
 and carries no secret. Credentials are read on the runner, which
 [Runners](runners.md) describes.
+
+## A person's approval
+
+A person's approval of a ticket's work is a workload with `runner: "Approval"`,
+listed in a plan's stage as any other evaluator is. It is only ever an
+evaluator, never a ticket's work. Finalization asks no approval. It has two
+keys, both optional:
+
+- **approvers.** Who may answer. `Developer`, the default, is anyone holding
+  the project's develop permit; `Admin` is anyone holding its administer
+  permit; or a list of principals, each written as a ticket's `creator` is,
+  any one of whom may answer.
+- **instructions.** What the approver is shown to look at.
+
+A person answers on the ticket's page or in the inbox. Approve passes that
+evaluator. Reject needs feedback, fails the stage and sends the work back to
+Work with the feedback in the next work's briefing, as any failed stage does.
+Only an approver may answer, and never one of chuggy's own agents. The answer,
+who gave it and when are recorded with the evaluation's result.
+
+A plan whose last stage asks a technical lead, and a ticket that selects it by
+`evaluation`, as any plan is selected:
+
+```json
+"workloads": {
+  "lead-review": {
+    "runner": "Approval",
+    "approvers": ["tech-lead@acme.example"],
+    "instructions": "Read the diff for fit with the module boundaries."
+  }
+},
+"plans": {
+  "reviewed": [
+    { "name": "checks", "evaluators": ["checks"] },
+    { "name": "approval", "evaluators": ["lead-review"] }
+  ]
+}
+```
+
+```json
+{ "selection": { "evaluation": "reviewed" } }
+```
 
 ## Importing
 
@@ -114,6 +155,57 @@ import every time it is asked, never stored, so the answer is only ever as
 of that newest import: a later one can turn a `Held` ticket `Current` or move
 it, or the other way around. No import changes `Trimmed`, which is decided
 from the revision the ticket holds.
+
+## Reusing an evaluator
+
+A workload run as an evaluator may name `reevaluate`, which holds `Always` or
+`OnChange`; a workload that names none is `Always`. It matters only for a
+workload run as an evaluator, and a version 1 configuration, which has no
+workloads, has no such key.
+
+Evaluation can run more than once on a ticket whose change did not change.
+The common case is a ticket landing by the Serialized or Stacked policy
+whose target branch moved while it waited: its work is merged onto the new
+tip and evaluation runs again on the merge result. An `Always` evaluator runs
+every time. An `OnChange` evaluator that already passed is not run again when
+the ticket's own diff is the same as when it passed; its pass and its report
+are carried forward, and the run shows as reused from the earlier work cycle.
+
+The usual setup is `OnChange` on an agent review, and `Always`, the default,
+on commands such as tests and CI: commands must be run on the tree that will
+land, and a review of an unchanged diff need not be repeated.
+
+```json
+"review": {
+  "runner": "Agent",
+  "purpose": "Review",
+  "reevaluate": "OnChange",
+  "prompt": {
+    "path": ".chug/prompts/review.md"
+  }
+}
+```
+
+The fragment leaves out the `worker` and the rest a whole workload has.
+
+A pass is carried only where all of these hold:
+
+- The same evaluator of the same ticket passed on an earlier work cycle.
+- The workload is unchanged, the ticket's overrides included: changing its
+  prompt, model or any other field makes it run again.
+- The ticket's own diff against its target is unchanged. A clean merge of a
+  moved target keeps it. Resolving a merge conflict, or any edit made after
+  another evaluator sent the ticket back to Work, changes it, and the
+  evaluator runs again.
+- For a Stacked ticket, a pass earned while stacked on other tickets is
+  carried only if all of those landed as they were; if one was ejected or
+  reworked, the evaluator runs again.
+
+Before choosing `OnChange`, know what it gives up. A carried review did not
+see the commits the target gained, so anything that must hold on the landed
+tree belongs in an `Always` evaluator. The comparison is also conservative: a
+clean merge that changes lines right beside the ticket's own can make the
+review run again.
 
 ## What length costs
 

@@ -1,0 +1,11 @@
+{
+  "name": "chuggy",
+  "owner": { "name": "kasofsk" },
+  "plugins": [
+    {
+      "name": "chuggy",
+      "source": "./plugins/chuggy",
+      "description": "Teaches Claude Code to set chuggy up on a machine and to file a ticket."
+    }
+  ]
+}

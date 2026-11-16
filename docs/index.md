@@ -27,8 +27,7 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
   [A ticket](tickets.md) covers its phases and its brief.
 - **Stage.** A step a ticket moves through. In the work stage an agent makes
   the change; each evaluation stage after it runs checks or a reviewing agent;
-  finalization lands what passed, with a person's approval where the
-  configuration requires one.
+  finalization lands what passed.
 - **Task.** What a ticket owes at one stage: the one work task of a cycle,
   or one evaluator's task in one evaluation stage. A task is retried until it
   is fulfilled or the ticket parks.
@@ -39,6 +38,8 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
 - **Runner.** A machine registered to run a project's jobs: a shared pool, or
   one member's own. [Runners](runners.md) covers the three packages and how
   work is placed.
+- **Chat host.** The one machine of yours, in a workspace, that your threads
+  run on. [Runners](runners.md#a-chat-host) covers registering one.
 - **Epic.** A named set of tickets worked toward one end, with the progress
   of its members worked out from their phases. [Epics](epics.md) covers what
   one holds and how a ticket is filed into it.
