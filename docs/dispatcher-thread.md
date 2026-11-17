@@ -94,7 +94,8 @@ its body, and exits 1 on a refusal or failed call.
 - `read_epic_graph` carries `nodes` (`ticket`, `phase`, `member`) and `edges`
   (`from` a dependency, `to` its dependent).
 - `read_epic` carries `visibility` (Active or Archived) and `status`.
-- `dispatch_ticket` answers the operation's id. `read_operation` answers
+- `dispatch_ticket` answers the operation's id as `operation`, and its
+  `state`; `read_operation` takes that `operation` and answers its `state`:
   Pending, Succeeded, Refused with a `code`, Answered or Cancelled. A ticket
   that is not Pending is answered without anything being submitted, so a pass
   run again after a restart cannot dispatch it twice.
@@ -210,12 +211,11 @@ function inEpicOrder(pending, edges) {
 
 /** Read one dispatch's operation until it is no longer Pending. */
 async function outcome(operation) {
-  for (let tries = 0; tries < 150; tries += 1) {
+  for (;;) {
     const { body } = await chuggy("read_operation", { operation });
     if (body.state !== "Pending") return body;
     await sleep(2000);
   }
-  throw new Error(`operation ${operation} still Pending after 5 minutes`);
 }
 
 async function pass() {
@@ -238,12 +238,14 @@ async function pass() {
   // Epics: each is read, then its members listed, or flagged and skipped.
   const epicOrder = new Map(); // epic -> Pending members in order
   const inEpics = new Set();
+  const skippedEpics = [];
   for (const epic of queue.epics ?? []) {
     try {
       const { body: head } = await chuggy("read_epic", { epic });
       if (head.status === "done") flag(`epic ${epic} done`, "tell its owner");
       if (head.visibility === "Archived") {
         flag(`epic ${epic} archived`, "skipped");
+        skippedEpics.push(epic);
         continue;
       }
       const { body: graph } = await chuggy("read_epic_graph", { epic });
@@ -254,6 +256,7 @@ async function pass() {
       epicOrder.set(epic, inEpicOrder(pending, graph.edges ?? []));
     } catch (failure) {
       flag(`epic ${epic} unreadable`, failure.message);
+      skippedEpics.push(epic);
     }
   }
 
@@ -268,6 +271,20 @@ async function pass() {
   }
 
   const named = new Set([...(queue.order ?? []), ...inEpics]);
+
+  // A skipped epic's members were not read, so what was flagged about them,
+  // and its own "done" flag, stay raised rather than being dropped and raised
+  // again when it reads.
+  if (skippedEpics.length > 0)
+    for (const key of before) {
+      const member = /^ticket (\d+) (escalated|has a revoked dependency)$/.exec(key);
+      const epicDone = /^epic (\d+) done$/.exec(key);
+      if (
+        (member && !known.has(Number(member[1])) && !(queue.order ?? []).includes(Number(member[1]))) ||
+        (epicDone && skippedEpics.includes(Number(epicDone[1])))
+      )
+        raised.add(key);
+    }
 
   for (const entry of await listTickets({ phase: ["Escalated"] }))
     if (named.has(entry.ticket) && !ignore.has(entry.ticket))
