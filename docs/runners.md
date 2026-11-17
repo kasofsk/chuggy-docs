@@ -25,7 +25,7 @@ A member's chat host can run a thread that dispatches a project's tickets; see
 ## Shared pools and your own runner
 
 A **pool** is a project's shared machine. Any ticket in the project may run on
-it, and so may the project's threads and its lead. A project can have many
+it. A project can have many
 pools, and a pool is one per name in a project.
 
 A **personal runner** is a member's own machine. It runs only work that member
@@ -38,8 +38,7 @@ theirs is online.
 
 ## A chat host
 
-A chat host is the one machine of yours, in a workspace, that your threads and
-questions run on, under your own Claude credential. It takes no jobs. A
+A chat host is the one machine of yours, in a workspace, that your threads run on, under your own Claude credential. It takes no jobs. A
 workspace administrator grants a member the right to register one.
 
 To register one from the console, open the personal-runners page in your

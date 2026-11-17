@@ -17,7 +17,7 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
 - **Workspace.** The top of the tree: the people, the connected GitHub
   accounts, and the projects. An invite link makes one or adds you to one.
 - **Project.** A set of repositories worked on together, with its own
-  tickets, runners, and, optionally, a lead. Every ticket belongs to one
+  tickets and runners. Every ticket belongs to one
   project.
 - **Repository.** A GitHub repository the project binds. It holds the
   project's [configurations](configuration.md) under `.chug/configurations/`.
@@ -45,13 +45,6 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
   one holds and how a ticket is filed into it.
 - **Thread.** A chat with an agent that acts on your behalf in a project: it
   reads the project, drafts tickets, and releases them on your word.
-- **Lead.** A project's own agent that watches the whole graph rather than one
-  ticket. It proposes what to run next, holds a ticket that would conflict
-  with work in flight and says why, and answers members' questions. Its
-  decisions are in a log; the ones it holds for a person are in the inbox.
-  [Writing a project's lead prompt](lead-prompt.md) covers what to tell it;
-  [The subsidized lead](subsidized-lead.md) covers running it on chuggy's own
-  hardware.
 
 ## Where to start
 

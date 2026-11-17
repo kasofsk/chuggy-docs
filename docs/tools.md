@@ -1,6 +1,6 @@
 ---
 title: Tools for your coding agent
-description: Give Claude Code the chuggy tools a thread has, and the lead's settings and placement, under your own sign-in.
+description: Give Claude Code the chuggy tools a thread has, and the project's thread settings and placement, under your own sign-in.
 ---
 
 # Tools for your coding agent
@@ -36,7 +36,7 @@ readable only by you, one per site, by both packages.
 ## The tools
 
 They are the tools a session in chuggy has, for one project, and the tools
-for the project's lead settings and placement, which only your own agent is
+for the project's thread settings and placement, which only your own agent is
 given. Epics,
 the named sets of tickets [Epics](epics.md) describes, are read and written by
 the first two groups.
@@ -45,8 +45,7 @@ the first two groups.
 `read_draft`, `list_configurations`, `read_configuration`,
 `list_repositories`, `list_executions`, `read_execution`,
 `read_run_transcript`, `read_run_error`, `read_ticket_landings`,
-`read_ticket_refusals`, `read_refusals`, `read_decision_log`, `read_lead`,
-`read_lead_transcript`, `read_operation`, `list_threads`, `read_thread`,
+`read_operation`, `list_threads`, `read_thread`,
 `read_thread_transcript`, `fetch_image`, `read_docs`, `read_abilities`,
 `list_epics`, `read_epic`, `read_epic_history` and `read_epic_graph`.
 Everything the console shows, one page at a time, each answer naming its cursor; and these docs,
@@ -68,7 +67,7 @@ reads on from.
 waits on another; `initialize_draft` and `revise_draft` shape a draft;
 `release_draft` releases it; `delete_draft` discards it; `update_ticket`
 revises a released ticket that has not started; `revoke_ticket` ends one;
-`dispatch_ticket` starts a released ticket now, where you may dispatch.
+`dispatch_ticket` starts a released ticket, where you may dispatch.
 `create_epic` makes an epic and `revise_epic` rewrites one whole against the
 `revision` `read_epic` answered; `add_epic_tickets` and `remove_epic_tickets`
 change only an epic's members, reading it and revising it in one call, doing
@@ -88,32 +87,30 @@ is `worker`, `practices`, `brief` and `work`, which holds only
 `instructions`. Give a workload's whole `worker` to choose a different model
 for it, in place of carrying a copy of the workload just to change that.
 
-**The lead's settings and placement.** No session in chuggy is given these, so
-that a lead does not rewrite the settings it runs under, and a thread does not
-make an administrator's change on the strength of a chat message.
-`read_lead_settings` answers the project's lead settings: `overrides`, what
-the project sets; `effective`, what its lead runs with; and the `revision` a
-write is made against. Settings
-larger than one answer are read by `path` and `offset`, as
-`read_configuration` reads a configuration. `update_lead_settings` takes that
-`revision` as `expectedRevision`, `set`, the fields to replace, each whole, and
-`clear`, the fields to return to the installation's default. A field named in
-neither keeps what the settings hold: the tool writes the whole set itself, so
-a long prompt never has to pass back through your agent. Settings that moved
-since they were read are refused as `SettingsRevisionConflict`, and the tool
-does not try again. `read_placement` answers where the project's threads and
-lead run and which lead offerings the project may choose; `update_placement`
-changes the fields it is given and keeps the rest, except that `lead` `Pool`
-with no `leadOffering` runs the project's own lead. Reading or writing the lead
-settings needs `manageSelector` in `read_abilities`, and changing placement
-needs `administer`, as in the console. [Writing a project's lead
-prompt](lead-prompt.md) says what to write, and [The subsidized
-lead](subsidized-lead.md) what moving the lead changes. These four come with
-chuggy-linux 0.48.0 and chuggy-darwin 0.18.0.
+**Thread settings and placement.** No session in chuggy is given these, so
+that a thread does not make an administrator's change on the strength of a chat
+message. `read_lead_settings` and `update_lead_settings` read and write a
+project's [thread settings](thread-settings.md); their names are kept from
+before. `read_lead_settings` answers `overrides`, what the project sets;
+`effective`, what its threads run with, `northStar` and `threadStandingRules`;
+and the `revision` a write is made against. The fields are `northStar`,
+`threadStandingRules`, `threadModel` and `threadEffort`. Settings larger than
+one answer are read by `path` and `offset`, as `read_configuration` reads a
+configuration. `update_lead_settings` takes that `revision` as
+`expectedRevision`, `set`, the fields to replace, each whole, and `clear`, the
+fields to return to the default. A field named in neither keeps what the
+settings hold: the tool writes the whole set itself, so a long text never has
+to pass back through your agent. Settings that moved since they were read are
+refused as `SettingsRevisionConflict`, and the tool does not try again.
+`read_placement` answers where the project's threads run; `update_placement`
+changes the fields it is given and keeps the rest. Fields that older clients
+still send have no effect. Reading or writing the thread settings
+needs `manageSelector` in `read_abilities`, and changing placement needs
+`administer`, as in the console. These four come with chuggy-linux 0.48.0 and
+chuggy-darwin 0.18.0.
 
-**Not deciding.** The lead's tools, which choose, hold and lift tickets, are
-not served here. A coding agent with these tools acts as you in the project: it
-dispatches only what you may, and it never acts as the project's lead.
+A coding agent with these tools acts as you in the project: it dispatches only
+what you may.
 
 The chuggy tools do not change the machine they run on. To make this computer your chat host, the agent runs the setup program's `chat-host`; [A chat host](runners.md#a-chat-host) says how.
 
@@ -123,5 +120,4 @@ With the server added, the agent can answer questions such as what is in
 flight, why a ticket is held, what a run's transcript says, and what a
 configuration runs. It can file the follow-ups it finds while working, each
 waiting on the ticket it came from, and release them when you say so. And
-when you ask, it can rewrite the lead's prompt, pause or resume the lead, or
-move it onto the subsidized lead.
+when you ask, it can change the project's thread settings.

@@ -65,7 +65,8 @@ project, drafts the ticket, and releases it when you say so. It can file
 follow-ups that wait on the first, and it acts through the same commands you
 have, recorded as yours.
 
-Once released, a ticket waits for the tickets it depends on, then runs: the
+Once released, a ticket waits for the tickets it depends on, then for someone who may dispatch to
+start it (New ticket's Submit does that where you may), then runs: the
 work stage on a runner, each evaluation stage after it, and finalization. A
 failed check sends the work back with the reason. Work that fails too often
 parks, and the ticket appears in the inbox for a person.
@@ -80,7 +81,7 @@ pull request it became. A run reused from an earlier work cycle shows as
 reused, with its carried report and a link to that cycle's run
 ([Reusing an evaluator](configuration.md#reusing-an-evaluator)). The inbox
 lists every ticket that needs a person: a parked ticket, an approval the
-configuration requires, or a decision the lead has held for review.
+configuration requires.
 
 ## From your terminal
 

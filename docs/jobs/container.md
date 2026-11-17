@@ -172,7 +172,6 @@ that was already on the machine.
 
 ## Sessions
 
-A project's chat threads and its lead agent can also run on its runners, as
-sessions. A session
+A member's threads run on their chat host, as sessions. A session
 runs in chuggy's own image, never the project's, and is handed neither the
 engine socket nor the runner's volumes.

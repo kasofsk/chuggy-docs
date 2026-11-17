@@ -13,9 +13,8 @@ below until it is Done or Revoked.
 - **Draft.** Filed and not yet released. It holds its ticket number, it can
   be revised or deleted, and nothing runs it.
 - **Pending.** Released, which starts nothing by itself. It waits until every
-  ticket it depends on is Done, then until it is dispatched: the project's
-  lead chooses it, or a person who may dispatch starts it. Where the project
-  holds the lead's choices for approval, a person approves the choice first.
+  ticket it depends on is Done, then until it is dispatched: a person who
+  may dispatch starts it, or their thread acting as them.
   A dependency a project developer or admin revokes never finishes, so this
   ticket cannot be dispatched until an update drops that dependency or this
   ticket is revoked too; a read shows it in `revokedDependencies`, and the
