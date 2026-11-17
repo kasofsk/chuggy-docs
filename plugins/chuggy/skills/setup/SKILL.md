@@ -16,22 +16,23 @@ person's chat host (chuggy `ui/chuggy-ui/app/core/claudeCodeLine.ts`). Its
 none of them. Do what the output says, and run the `next:` command it ends
 with.
 
-At the start of a run, launch a subagent to explore the repository and report
+Once the person has said yes, launch a subagent to explore the repository and report
 which toolchains its work needs and which images it already defines, and carry
 on with the program meanwhile, so the answer is ready when the program asks
 for a worker image.
 
 ## Talking to the person
 
+- The first thing the person gets is a short message saying what setup will
+  do, in order, and asking whether to go on. Start nothing before their yes:
+  no subagent, no sign-in, no command beyond fetching the program and its
+  first, bare run, which changes nothing.
 - Ask one question at a time, in chat, and only about a real choice. A step
   with one sensible answer is announced, then done unless the person
   objects.
 - While a sign-in page waits, keep re-running the `next:` command in the
   background rather than asking to be told the person is done. Give them the
   sign-in address in full, at once.
-- The program's north-star step offers the North Star: follow its `rule:`
-  lines, show the draft before running its command, and let the person skip
-  it.
 - Never ask the person to judge a package, a path or a version. Decide from
   the program's output; the person is asked what only they know.
 - At the end, list what changed on the machine: what was installed, what
@@ -81,5 +82,9 @@ host's reservation, plus headroom.
   `sessionsMax` (2) is the pool's sessions, not the chat host's
   (chuggy-linux `README.md:85`, chuggy-darwin `README.md:57`).
 
-Say the arithmetic to the person in terms of the machine, and make the
-change yourself rather than asking them to choose a number.
+Where the machine fits a job and the chat host, say nothing to the person
+about memory, neither figures nor that it fits. Speak of it only where
+something has to change (Colima's VM resized, the chat host skipped, another
+machine used), and then say in a sentence what you will change or what they
+need to do, without figures. Make the change yourself rather than
+asking them to choose a number.
