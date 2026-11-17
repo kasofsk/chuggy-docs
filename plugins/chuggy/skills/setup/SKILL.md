@@ -16,9 +16,16 @@ person's chat host (chuggy `ui/chuggy-ui/app/core/claudeCodeLine.ts`). Its
 none of them. Do what the output says, and run the `next:` command it ends
 with.
 
+At the start of a run, launch a subagent to explore the repository and report
+which toolchains its work needs and which images it already defines, and carry
+on with the program meanwhile, so the answer is ready when the program asks
+for a worker image.
+
 ## Talking to the person
 
-- Ask one question at a time, in chat.
+- Ask one question at a time, in chat, and only about a real choice. A step
+  with one sensible answer is announced, then done unless the person
+  objects.
 - While a sign-in page waits, keep re-running the `next:` command in the
   background rather than asking to be told the person is done. Give them the
   sign-in address in full, at once.
