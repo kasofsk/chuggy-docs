@@ -1,12 +1,12 @@
 ---
 title: Running a ticket dispatcher from a thread
-description: How a member's thread dispatches a project's tickets in place of its lead, with a script it starts as a job, a queue file it keeps, and a wake only when something needs judgement.
+description: How a member's thread dispatches a project's tickets on its member's behalf, with a script it starts as a job, a queue file it keeps, and a wake only when something needs judgement.
 ---
 
 # Running a ticket dispatcher from a thread
 
-A member can have one of their threads dispatch a project's tickets in place
-of the project's lead. The thread runs on the member's
+A member can have one of their threads dispatch a project's tickets on their
+behalf. The thread runs on the member's
 [chat host](runners.md). A script it starts as a job polls chuggy through the
 `chuggy` command, which costs no tokens, and the thread is woken only when
 the script logs something that needs judgement. This page is what a thread
