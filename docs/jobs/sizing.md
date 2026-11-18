@@ -5,7 +5,7 @@ description: How a configuration asks for the CPUs and memory each job runs with
 
 # Sizing a stage
 
-Each job runs with 2 CPUs and 4096 MiB of memory unless its configuration asks
+Each job runs with 2 CPUs and 2048 MiB of memory unless its configuration asks
 for something else. The size is the container's CPU and memory limit
 ([A job's container](container.md#size-and-time)). `cpus` is a whole number
 from 1 to 64, and `memoryMib` a whole number of MiB from 512 to 262144. Either
@@ -39,7 +39,7 @@ to every job, and an entry of `taskKindDefaults` replaces it for the work
 
 ```json
 "resources": {
-  "ticketDefault": { "cpus": 2, "memoryMib": 4096 },
+  "ticketDefault": { "cpus": 2, "memoryMib": 2048 },
   "taskKindDefaults": {
     "Evaluation:1": { "cpus": 8, "memoryMib": 16384 }
   }

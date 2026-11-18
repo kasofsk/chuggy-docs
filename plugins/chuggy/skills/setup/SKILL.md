@@ -66,19 +66,19 @@ will use chuggy only through their agent.
 The engine's memory needs to be at least a job's memory, plus the chat
 host's reservation, plus headroom.
 
-- A job asks 4,096 MiB where nothing names another size (chuggy
-  `src/interpreter/workerPool.ts:195`).
+- A job asks 2,048 MiB where nothing names another size (chuggy
+  `src/interpreter/workerPool.ts:205`).
 - A chat host reserves `sessionsMax` × `sessionMemoryMib`: by default 4 ×
-  2,048 MiB, 8 GiB (chuggy-common `chatHost.mjs:177,180,918-920`;
-  chuggy-darwin `README.md:192-196`).
+  1,024 MiB, 4 GiB (chuggy-common `chatHost.mjs:186,189,939-941`;
+  chuggy-darwin `README.md:195-196`).
 - On a Mac, a job is sized against Colima's VM, not the Mac
   (chuggy-darwin `README.md:45`), and a fresh VM has 2 GiB. Raise it with
   `colima stop` then `colima start --memory <GiB>`, keeping `--vz-rosetta` on
   Apple silicon.
 - On Linux, docker uses the host's memory.
 - To shrink the reservation, lower `chat.sessionsMax` (4) or
-  `chat.sessionMemoryMib` (2048) in runner.json (chuggy-linux
-  `README.md:246-258`, chuggy-darwin `README.md:192-196`). The top-level
+  `chat.sessionMemoryMib` (1024) in runner.json (chuggy-linux
+  `README.md:244-257`, chuggy-darwin `README.md:192-196`). The top-level
   `sessionsMax` (2) is the pool's sessions, not the chat host's
   (chuggy-linux `README.md:85`, chuggy-darwin `README.md:57`).
 
