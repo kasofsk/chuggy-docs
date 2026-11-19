@@ -35,8 +35,8 @@ accounts, and chuggy keeps the record of what ran, what it decided, and why.
   machine itself, with its own log and exit. A task that fails may be run as
   more than one job. [Jobs](jobs/index.md) covers what a job runs in and how
   to make it fast.
-- **Runner.** A machine registered to run a project's jobs: a shared pool, or
-  one member's own. [Runners](runners.md) covers the three packages and how
+- **Runner.** A machine registered to run a project's jobs: a member's own
+  machine. [Runners](runners.md) covers the three packages and how
   work is placed.
 - **Chat host.** The one machine of yours, in a workspace, that your threads
   run on. [Runners](runners.md#a-chat-host) covers registering one.

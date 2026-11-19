@@ -1,6 +1,6 @@
 ---
 title: Runners
-description: The machines that run a project's jobs, shared or your own, and how work is placed on them.
+description: The machines that run a project's jobs, and how work is placed on them.
 ---
 
 # Runners
@@ -22,19 +22,23 @@ the credentials a runner reads.
 A member's chat host can run a thread that dispatches a project's tickets; see
 [Running a ticket dispatcher from a thread](dispatcher-thread.md).
 
-## Shared pools and your own runner
-
-A **pool** is a project's shared machine. Any ticket in the project may run on
-it. A project can have many
-pools, and a pool is one per name in a project.
+## Your own runner
 
 A **personal runner** is a member's own machine. It runs only work that member
 started, in the projects they allow it, and a member may hold several. A
-workspace administrator grants a member the right to register one. The
-workspace also says how a member's own runners and the shared pools share
-the member's work: their own runners take it and no shared runner does while
-one of theirs serves the project, or a shared runner takes it while none of
-theirs is online.
+workspace administrator grants a member the right to register one.
+
+Work that runs on runners runs only on a runner of its owner: the member who
+took the ticket, else the member who filed it. Nothing in a workspace or a
+project has to be set for a runner to take its owner's work.
+
+- While the owner has a runner serving the project and it is offline, the run
+  shows "Waiting on your personal runners · offline" and waits for it.
+- Where the owner has no runner serving the project, or the ticket has no owner
+  who is a member, the run is blocked, "Nowhere to run this work", and the
+  ticket stops for a person. A member who has a runner can Take the ticket, and
+  once it is resumed with Resume its next run is theirs. A take moves no run
+  that has already started or stopped.
 
 ## A chat host
 
@@ -74,8 +78,7 @@ Low, which you set per project on Personal runners. Among started work, and
 again among new tickets, a higher-priority project's job goes first, ahead
 of the age of its ticket. A Low project starts a ticket only when nothing
 above it could start one. Priority only orders what starts: started work
-never waits behind it. A shared pool has no priorities; it takes started
-tickets first, then the oldest.
+never waits behind it.
 
 Personal runners shows what each of your runners is running: the project
 and ticket, whether it is work or an evaluation, and its cycle, or Idle where
@@ -88,15 +91,19 @@ Register runner on Settings → Personal runners mints a registration token for
 your own runner and shows the steps that spend it: install the package, then
 
 ```sh
-chuggy-linux register --api <site> --token=<token>
+chuggy-linux register --personal --api <site> --token=<token>
 ```
 
-with `--personal` for your own runner, `--host` for a machine that runs
+with `--host` for a machine that runs
 image-less work on itself, and `--capability` for anything else the machine
 meets, such as a tool a configuration may ask for. The token is spent once;
-registering again replaces it. Settings → Pools lists a project's pools; the
-console registers none. The Linux setup program can register its machine as
-one, and on a Mac sends you to Personal runners.
+registering again replaces it.
+
+chuggy no longer runs shared pools. A machine registered as one is refused at
+its next poll and its service stops; the service stays installed, and is
+refused again at each start. Its operator removes the pool's service and file
+and registers the machine again as their own runner, which needs the right a
+workspace administrator grants.
 
 ## Credentials
 
@@ -122,7 +129,7 @@ The [chuggy-linux](https://github.com/kasofsk/chuggy-linux#configure) and
 the full form and an example.
 
 **Who chooses, and when.** Each service chooses for itself: a personal
-runner, a pool's service, a chat host. Nothing is shared between services or
+runner or a chat host. Nothing is shared between services or
 machines. A credential is chosen for each job and for each chat session.
 `InOrder` takes the first one that is free; `RoundRobin` takes the one after
 the last one chosen. A running job keeps its credential to the end.
@@ -178,8 +185,7 @@ memory and free disk (on a Mac, Colima's VM's, but for the name).
 
 Sign in to <https://grafana.vteng.io> with your chuggy account. The
 **Chuggy runners** dashboard opens on your own runners. Everyone shows every
-runner, and a Project then narrows it to that project's shared pools, which
-belong to no one member. **Chuggy usage** shows what ticket work and chat
+runner. **Chuggy usage** shows what ticket work and chat
 cost, their tokens and turns, and how long work and checks took. Every member
 who signs in can query every series, so these choices narrow what a page
 shows and keep nothing private.
