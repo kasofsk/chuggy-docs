@@ -79,7 +79,7 @@ host's reservation, plus headroom.
 - To shrink the reservation, lower `chat.sessionsMax` (4) or
   `chat.sessionMemoryMib` (1024) in runner.json (chuggy-linux
   `README.md:244-257`, chuggy-darwin `README.md:192-196`). The top-level
-  `sessionsMax` (2) is the pool's sessions, not the chat host's
+  `sessionsMax` (2) is not the chat host's
   (chuggy-linux `README.md:85`, chuggy-darwin `README.md:57`).
 
 Where the machine fits a job and the chat host, say nothing to the person
