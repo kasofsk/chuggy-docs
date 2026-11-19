@@ -13,6 +13,7 @@ the configuration a repository carries, and what a job runs in. Rendered at
 - [Runners](docs/runners.md)
 - [Running a ticket dispatcher from a thread](docs/dispatcher-thread.md)
 - [Tools for your coding agent](docs/tools.md)
+- [Access tokens](docs/access-tokens.md)
 - [Configuration](docs/configuration.md)
 - [Jobs](docs/jobs/index.md)
   - [A job's container](docs/jobs/container.md)
