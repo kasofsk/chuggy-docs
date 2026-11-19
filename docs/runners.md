@@ -91,7 +91,7 @@ Register runner on Settings → Personal runners mints a registration token for
 your own runner and shows the steps that spend it: install the package, then
 
 ```sh
-chuggy-linux register --api <site> --token=<token> --personal
+chuggy-linux register --personal --api <site> --token=<token>
 ```
 
 with `--host` for a machine that runs
