@@ -49,11 +49,13 @@ check line, and every shell the agent runs, is also told which job it is in.
 | `CHUG_ATTEMPT`     | This attempt's id. A stage run again gets a new one.                                        |
 | `CHUG_STAGE`       | `Work`, or `Evaluation:1`, `Evaluation:2` and so on for the evaluation stages in order.     |
 | `CHUG_CHANGE_BASE` | The commit the change started from, set only where it is known.                             |
+| `CHUG_COMMIT`      | The commit the stage's checkout is at.                                                      |
+| `CHUG_REF`         | The full ref the forge holds that commit on, set only where the stage's input names it; never in Work. |
 | `CHUG_ENV`         | In a setup line only, the file it passes variables on in ([below](#passing-variables-from-setup)). |
 
 The runner's `environment` cannot set any of these. Setup and check lines run
-under `sh -eu`, so a line reads the change base as `${CHUG_CHANGE_BASE-}`, which
-is empty where it is unset.
+under `sh -eu`, so a line reads the change base as `${CHUG_CHANGE_BASE-}`, and
+the ref as `${CHUG_REF-}`, which are empty where unset.
 
 chuggy hands git its own settings through `GIT_CONFIG_COUNT` and the
 `GIT_CONFIG_KEY_n` and `GIT_CONFIG_VALUE_n` pairs it counts, after any the

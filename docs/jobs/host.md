@@ -92,6 +92,8 @@ A setup line has `CHUG_ENV`
 ([Passing variables from setup](container.md#passing-variables-from-setup))
 on a runner release from 0.21.0 on; on an older one it is unset, and a line
 that writes to it fails.
+`CHUG_COMMIT` and `CHUG_REF` are set on chuggy-linux 0.62.0 and chuggy-darwin
+0.32.0 and later; on an older release they are unset.
 Reading the project's repositories past the clone needs the machine's git to
 be 2.31 or later.
 
