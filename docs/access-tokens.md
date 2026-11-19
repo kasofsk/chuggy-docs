@@ -33,7 +33,8 @@ token is shown once, so copy it then.
 
 Set `CHUGGY_TOKEN` in the environment of the process that runs Claude Code,
 which starts `chuggy-darwin mcp` on a Mac or `chuggy-linux mcp` on Linux. With
-it set, the server makes no sign-in and touches no stored sign-in.
+it set, the server makes no sign-in and touches no stored sign-in. It needs
+chuggy-linux 0.61.0 or chuggy-darwin 0.31.0, or later.
 
 A launchd agent's property list:
 
