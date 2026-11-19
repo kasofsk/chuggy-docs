@@ -33,6 +33,8 @@ After that, calls go through under your own account, and every action is
 recorded as yours. The renewal token is kept in `~/.config/chuggy/sign-ins`,
 readable only by you, one per site, by both packages.
 
+For a script that runs without you, see [Access tokens](access-tokens.md).
+
 ## The tools
 
 They are the tools a session in chuggy has, for one project, and the tools
