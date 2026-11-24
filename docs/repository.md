@@ -131,15 +131,22 @@ escalates under that label after a while if nothing changes, not at once:
 - Merged: the ticket is **Done**.
 - An entry ahead of it changed the same lines (`merge_conflict`): the ticket
   goes back to Work with the conflict, as any landing that conflicts does.
-- Checks failed (`failed_checks`): the first time, chuggy queues the same
-  head again, since the failure may have been an entry ahead of it. The
-  second time, the change goes back to Work as **Merge queue checks failed**,
-  and the agent is told the base branch's commit to bring in and the commit
-  the queue built, so it merges the base in before it fixes the change. Once
-  the rework holds that base, `CHUG_CHANGE_BASE` in its checks and review is
-  that base, so a check that reads it sees only the ticket's own change. A
-  ticket is sent back this way at most twice by default; after that it holds
-  as **Proposal merges exhausted**.
+- Checks failed (`failed_checks`): chuggy does not queue the same pull
+  request blind, which would run the queue again and rebuild every entry
+  behind it even when the failure will happen again. It first re-checks the
+  change on the base: a work cycle with no agent, where the base merges
+  cleanly, that merges the base in and runs the evaluation. Only if that
+  evaluation passes is the pull request queued again, so a failure caused by
+  an entry ahead of it passes and is queued again; a failed evaluation goes
+  back to Work with the checks' report. If the head the re-check queued is
+  removed for failed checks too, the change goes back to Work as **Merge
+  queue checks failed**, and the agent is told the base branch's commit to
+  bring in and the commit the queue built, so it merges the base in before it
+  fixes the change, and the failing checks where they could be read. Once the
+  rework holds that base, `CHUG_CHANGE_BASE` in its checks and review is that
+  base, so a check that reads it sees only the ticket's own change. A ticket
+  is sent back this way at most twice by default; re-checks are not counted
+  toward that bound. After that it holds as **Proposal merges exhausted**.
 - Checks never reported (`checks_timed_out`): queued again once; the second
   time it holds as **Merge queue checks timed out again**. A rework cannot
   fix a check that never reports, which is what a missing `merge_group`
@@ -149,6 +156,13 @@ escalates under that label after a while if nothing changes, not at once:
   once escalated, **Needs you** names GitHub's reason and who removed it,
   such as "Queue removal: manual by `<login>`". **Resume** runs the landing
   again, which puts the pull request back on the queue.
+
+The failing checks are named where GitHub lets chuggy read them: check runs
+when the account that owns the repository has accepted Checks (read) for
+Chuggy Portal, statuses when it has accepted Commit statuses (read). Where
+neither is accepted the checks are left unnamed and nothing else changes. They
+are named in the landing, under **Needs you** when the landing holds as
+**Proposal merges exhausted**, and in the rework's briefing.
 
 A landing that escalates, or stops because its project is closing, takes its
 pull request off the queue first, because a queued pull request merges with
@@ -165,4 +179,6 @@ and `Queued` while it waits there. An escalated landing (`state`
 where that hold is the queue removing the pull request and the removal is
 recorded, `hold.removal` gives GitHub's word for it — `manual`,
 `failed_checks` or `checks_timed_out` — as `reason`, and, where GitHub names
-one, the login that removed it as `actor`.
+one, the login that removed it as `actor`. Where the queue's failed checks were read, the attempt and, at
+**Proposal merges exhausted**, the `hold` carry them as `failedChecks`: their
+`names`, and `truncated` where more failed than are named.

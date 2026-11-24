@@ -197,6 +197,10 @@ A pass is carried only where all of these hold:
   moved target keeps it. Resolving a merge conflict, or any edit made after
   another evaluator sent the ticket back to Work, changes it, and the
   evaluator runs again.
+- The pass was not earned before a merge queue's checks failed, for an
+  evaluator whose workload has `"runner": "Commands"`: after such a failure
+  the commands run again on the next cycle, though a review may still be
+  reused.
 - For a Stacked ticket, a pass earned while stacked on other tickets is
   carried only if all of those landed as they were; if one was ejected or
   reworked, the evaluator runs again.
