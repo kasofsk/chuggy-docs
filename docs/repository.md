@@ -179,6 +179,7 @@ and `Queued` while it waits there. An escalated landing (`state`
 where that hold is the queue removing the pull request and the removal is
 recorded, `hold.removal` gives GitHub's word for it — `manual`,
 `failed_checks` or `checks_timed_out` — as `reason`, and, where GitHub names
-one, the login that removed it as `actor`. Where the queue's failed checks were read, the attempt and, at
-**Proposal merges exhausted**, the `hold` carry them as `failedChecks`: their
-`names`, and `truncated` where more failed than are named.
+one, the login that removed it as `actor`. Where the queue's failed checks
+were read, the attempt and, at **Proposal merges exhausted**, the `hold` carry
+them as `failedChecks`: their `names`, and `truncated` where more failed than
+are named.
