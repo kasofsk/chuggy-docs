@@ -174,7 +174,7 @@ uid 1000 with every capability dropped, keeps the assignment alive while the
 job runs, and saves the job's log when it ends.
 [A job's container](jobs/container.md) lists everything a job finds inside.
 
-## Metrics in Grafana
+## Runner metrics
 
 A runner reports on itself only where its owner turns that on: set
 `"reportMetrics": true` in its `runner.json`, on chuggy-linux 0.36.0 or
@@ -184,9 +184,6 @@ reports its work to chuggy (jobs and sessions running and how they ended,
 polls, refusals, pull and run times) and its machine's name, CPUs, load,
 memory and free disk (on a Mac, Colima's VM's, but for the name).
 
-Sign in to <https://grafana.vteng.io> with your chuggy account. The
-**Chuggy runners** dashboard opens on your own runners. Everyone shows every
-runner. **Chuggy usage** shows what ticket work and chat
-cost, their tokens and turns, and how long work and checks took. Every member
-who signs in can query every series, so these choices narrow what a page
-shows and keep nothing private.
+These reports go to chuggy's own monitoring. The people who run chuggy read
+them to keep the service working and to help you with a runner. The console
+does not show them.
