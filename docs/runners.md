@@ -110,8 +110,9 @@ workspace administrator grants.
 A job's agent needs a credential, and it is read on the runner: a Claude
 subscription token or API key, Bedrock, Vertex AI or Foundry for Claude, and
 a login for Codex. The runner's own configuration names the files. A
-credential reaches a job through a file mounted read-only, and every secret
-in it is scrubbed from what the job reports. Nothing of it is sent to chuggy.
+credential reaches a job through a file mounted read-only, and its secrets
+are scrubbed from what the job reports. Its name and usage readings are sent
+to chuggy; its secret is not.
 
 ### Several credentials for one agent
 
@@ -154,8 +155,8 @@ counted as two.
 pause on it. Retire forgets a credential's readings and limit. It is refused
 while a runner that is online still names that credential, so take the
 credential out of the runner's configuration first; a run on it later brings
-it back. A secret never reaches chuggy, so adding a credential means editing
-the configuration on each machine that should hold it.
+it back. chuggy does not hold a credential's secret, so adding a credential
+means editing the configuration on each machine that should hold it.
 
 **Versions.** A set needs chuggy-linux later than 0.47.0. chuggy pauses one
 credential at a time only for a runner that tells it which credentials it
